@@ -25,6 +25,8 @@ The goal of this project is to provide a detailed, step-by-step case study on ho
 
 ### Authentication
 
+The authentication module handles user sign-up, login, and security features such as password hashing, multi-factor authentication, Role-based authentication and session management.
+
 - [ ] User registration
 	- [ ] Verification by email
 	- [ ] CAPTCHA to avoid bots
