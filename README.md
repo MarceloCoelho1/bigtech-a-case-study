@@ -20,6 +20,7 @@ The goal of this project is to provide a detailed, step-by-step case study on ho
 
 **Note:** This project is primarily intended for educational purposes, including my own learning journey. I am not affiliated with Amazon, Google, Facebook, or any other big tech company. I am undertaking this project solely to improve my knowledge. Therefore, implementations may not mirror those of industry giants like Amazon, but I will strive to do my best. This also allows beginners to study and learn from the project. **Contributions and feedback are always welcome!**
 
+
 ## Modules
 
 ### Authentication
