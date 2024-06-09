@@ -18,7 +18,7 @@ Welcome to **BigTech: A Case Study**, a comprehensive project aimed at understan
 
 The goal of this project is to provide a detailed, step-by-step case study on how to build a scalable and efficient e-commerce platform similar to Amazon. Each module is self-contained, focusing on a specific aspect of the platform, making it easier to understand, develop, and test independently.
 
-**Note:** This project is primarily intended for educational purposes, including my own learning journey. Therefore, implementations may not be at the highest level, but I will strive to do my best. This also allows beginners to study and learn from the project. **Contributions and feedback are always welcome!**
+**Note:** This project is primarily intended for educational purposes, including my own learning journey. I am not affiliated with Amazon, Google, Facebook, or any other big tech company. I am undertaking this project solely to improve my knowledge. Therefore, implementations may not mirror those of industry giants like Amazon, but I will strive to do my best. This also allows beginners to study and learn from the project. **Contributions and feedback are always welcome!**
 
 ## Modules
 
