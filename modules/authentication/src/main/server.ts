@@ -1,10 +1,9 @@
-// src/main/server.ts
 import fastify from 'fastify';
 import { userRouter } from './routes/UserRoutes';
 
 const app = fastify();
 
-app.register(userRouter);
+userRouter(app);
 
 const start = async () => {
   try {
