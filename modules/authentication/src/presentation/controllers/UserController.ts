@@ -1,15 +1,23 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { UserUseCases } from '../../core/domain/usecases/UserUseCases';
 import { User } from '../../core/domain/entities/User';
+import { UserAlreadyExistsError } from '../../core/domain/errors/UserAlreadyExists';
 
 export class UserController {
   constructor(private userUseCases: UserUseCases) {}
 
   async createUser(req: FastifyRequest, reply: FastifyReply): Promise<void> {
-    const { id, email, name, passwordHash, createdAt } = req.body as any;
-    const user = new User(id, email, name, passwordHash, new Date(createdAt));
-    const createdUser = await this.userUseCases.createUser(user);
-    reply.status(201).send(createdUser);
+    try {
+      const requestBody = req.body as User
+      const user = await this.userUseCases.createUser(requestBody);
+      reply.status(201).send(user);
+    } catch (error) {
+      if (error instanceof UserAlreadyExistsError) {
+        reply.status(error.statusCode).send({ error: error.message });
+      } else {
+        reply.status(500).send({ error: 'Internal Server Error' });
+      }
+    }
   }
 
   async getUserById(req: FastifyRequest, reply: FastifyReply): Promise<void> {
