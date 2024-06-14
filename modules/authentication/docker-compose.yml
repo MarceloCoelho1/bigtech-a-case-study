@@ -8,6 +8,6 @@ services:
     environment:
       POSTGRES_USER: docker
       POSTGRES_PASSWORD: docker
-      POSTGRES_DB: apisolid
+      POSTGRES_DB: amazonauth
     ports:
       - '5432:5432'
