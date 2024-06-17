@@ -4,18 +4,19 @@ import { User } from '../entities/User';
 import { UserAlreadyExistsError } from '../errors/UserAlreadyExists';
 import { UserRepository } from '../repositories/UserRepository';
 
+
 export class UserUseCases {
   constructor(
     private userRepository: UserRepository,
     private bcryptService: IBcryptService,
     private jwtService: IJwtService
-  ) {}
+  ) { }
 
   async createUser(user: User): Promise<{ user: User, token: string }> {
     const userExist = await this.getUserByEmail(user.email);
 
     if (userExist) {
-      throw new UserAlreadyExistsError(); 
+      throw new UserAlreadyExistsError();
     }
     user.passwordHash = await this.bcryptService.hash(user.passwordHash);
 
@@ -41,7 +42,7 @@ export class UserUseCases {
     return this.userRepository.delete(id);
   }
 
-  async getUserByEmail(email: string): Promise <User | null> {
+  async getUserByEmail(email: string): Promise<User | null> {
     return this.userRepository.findByEmail(email);
   }
 }
