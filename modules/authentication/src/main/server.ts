@@ -1,9 +1,11 @@
 import fastify from 'fastify';
 import { userRouter } from './routes/UserRoutes';
+import { authRouter } from './routes/AuthRoutes';
 
 const app = fastify();
 
 userRouter(app);
+authRouter(app);
 
 const start = async () => {
   try {
