@@ -1,17 +1,10 @@
 import { User } from '../../core/domain/entities/User';
-import { UserAlreadyExistsError } from '../../core/domain/errors/UserAlreadyExists';
 import { UserRepository } from '../../core/domain/repositories/UserRepository';
 import { prisma } from '../datasources/PrismaClient';
 
 export class PrismaUserRepository implements UserRepository {
 
   async create(user: User): Promise<User> {
-    const userExist = await this.findByEmail(user.email);
-
-    if (userExist) {
-      throw new UserAlreadyExistsError(); 
-    }
-
     const createdUser = await prisma.user.create({
       data: {
         id: user.id,
