@@ -31,19 +31,19 @@ The authentication module handles user sign-up, login, and security features suc
 	- [ ] Verification by email
 	- [ ] CAPTCHA to avoid bots
 - [ ] User login
-	- [ ] Login with email and password
+	- [x] Login with email and password
 	- [ ] Social login Oauth2 (Google, Facebook, GitHub)
 - [ ] Password recovery
-	- [ ] Send password recovery by email
+	- [x] Send password recovery by email
 	- [ ] Implementation of security questions
 - [ ] Multifactor authentication
 	- [ ] Implementation of multifactor authentication using email, SMS, or authenticator applications (such as Google Authenticator)
 - [ ] Role-based authentication
 	- [ ] Create some roles such as user, admin, guest
 	- [ ] Access control to different parts of the application based on user roles
-- [ ] Tokens and sessions
-	- [ ] User session management
-	- [ ] JWT
+- [x] Tokens and sessions
+	- [x] User session management
+	- [x] JWT
 - [ ] Monitoring and security
 	- [ ] Monitoring of suspicious login attempts
 
