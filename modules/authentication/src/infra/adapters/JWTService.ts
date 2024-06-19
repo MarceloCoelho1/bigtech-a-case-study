@@ -23,4 +23,12 @@ export class JWTService implements IJwtService {
             return null;
         }
     }
+
+    resetToken(id: string): string {
+        const expiresIn = this.expiresIn
+        const resetToken = this.sign({ userId: id }, expiresIn)
+
+        return resetToken
+    }
+
 }
