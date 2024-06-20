@@ -1,14 +1,15 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { UserUseCases } from '../../core/domain/usecases/UserUseCases';
-import { User } from '../../core/domain/entities/User';
 import { UserAlreadyExistsError } from '../../core/domain/errors/UserAlreadyExists';
+import { CreateUserDTO } from '../dtos/CreateUserDto';
+import { UpdateUserDto } from '../dtos/UpdateUserDto';
 
 export class UserController {
   constructor(private userUseCases: UserUseCases) {}
 
   async createUser(req: FastifyRequest, reply: FastifyReply): Promise<void> {
     try {
-      const requestBody = req.body as User
+      const requestBody = req.body as CreateUserDTO
       const user = await this.userUseCases.createUser(requestBody);
       reply.status(201).send(user);
     } catch (error) {
@@ -36,9 +37,8 @@ export class UserController {
   }
 
   async updateUser(req: FastifyRequest, reply: FastifyReply): Promise<void> {
-    const { id, email, name, passwordHash } = req.body as any;
-    const user = new User(id, email, name, passwordHash, new Date());
-    const updatedUser = await this.userUseCases.updateUser(user);
+    const updateUserData = req.body as UpdateUserDto;
+    const updatedUser = await this.userUseCases.updateUser(updateUserData);
     reply.status(200).send(updatedUser);
   }
 
