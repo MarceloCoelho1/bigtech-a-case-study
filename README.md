@@ -27,9 +27,8 @@ This project aims to deepen my knowledge and learning by researching how these f
 
 The authentication module handles user sign-up, login, and security features such as password hashing, multi-factor authentication, Role-based authentication and session management.
 
-- [ ] User registration
-	- [ ] Verification by email
-	- [ ] CAPTCHA to avoid bots
+- [x] User registration
+	- [x] Verification by email
 - [ ] User login
 	- [x] Login with email and password
 	- [ ] Social login Oauth2 (Google, Facebook, GitHub)
