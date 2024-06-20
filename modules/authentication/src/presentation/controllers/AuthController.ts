@@ -5,6 +5,7 @@ import { UserNotExists } from '../../core/domain/errors/UserNotExists';
 import { IncorrectPassword } from '../../core/domain/errors/IncorrectPassword';
 import { EmailNotSent } from '../../core/domain/errors/EmailNotSent';
 import { InvalidToken } from '../../core/domain/errors/InvalidToken';
+import { UserNotVerified } from '../../core/domain/errors/UserNotVerified';
 
 export class AuthController {
     constructor(private authUseCases: AuthUseCases) { }
@@ -18,6 +19,8 @@ export class AuthController {
             if (error instanceof UserNotExists) {
                 reply.status(error.statusCode).send({ error: error.message });
             } else if (error instanceof IncorrectPassword) {
+                reply.status(error.statusCode).send({ error: error.message });
+            } else if(error instanceof UserNotVerified) {
                 reply.status(error.statusCode).send({ error: error.message });
             } else {
                 reply.status(500).send({ error: 'Internal Server Error' });
@@ -35,6 +38,8 @@ export class AuthController {
                 reply.status(error.statusCode).send({ error: error.message });
             } else if (error instanceof EmailNotSent) {
                 reply.status(error.statusCode).send({ error: error.message });
+            } else if(error instanceof UserNotVerified) {
+                reply.status(error.statusCode).send({ error: error.message });
             } else {
                 reply.status(500).send({ error: 'Internal Server Error' });
             }
@@ -51,6 +56,23 @@ export class AuthController {
             }
             await this.authUseCases.resetPassword(data)
             reply.status(200).send({msg: 'password changed successfully'})
+        } catch (error) {
+            if (error instanceof UserNotExists) {
+                reply.status(error.statusCode).send({ error: error.message });
+            } else if (error instanceof InvalidToken) {
+                reply.status(error.statusCode).send({ error: error.message });
+            } else {
+                reply.status(500).send({ error: 'Internal Server Error' });
+            }
+
+        }
+    }
+
+    async verifyUser(req: FastifyRequest, reply: FastifyReply): Promise<void> {
+        try {
+            const { token }  = req.query as { token: string }
+            await this.authUseCases.verifyUser(token)
+            reply.status(200).send({msg: 'User verified successfully'})
         } catch (error) {
             if (error instanceof UserNotExists) {
                 reply.status(error.statusCode).send({ error: error.message });
