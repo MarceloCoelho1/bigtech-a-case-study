@@ -4,6 +4,7 @@ export class User {
     public email: string,
     public name: string,
     public passwordHash: string,
-    public createdAt: Date
+    public createdAt: Date,
+    public is_verified: boolean
   ) {}
 }
