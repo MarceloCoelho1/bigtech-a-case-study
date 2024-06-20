@@ -10,11 +10,9 @@ export class MailService implements IMailService {
         from: 'Marcelo',
         to: data.to,
         subject: data.subject,
-        html: `
-            <p><strong>Recovery your password!</strong>!</p>
-            <a href="http://localhost:3333/auth/resetpassword/?token=${data.body}">Click here!</a>
-        `
+        html: data.body
     }
+    
     const transporter = nodemailer.createTransport({
         service: 'Gmail',
         auth: {
