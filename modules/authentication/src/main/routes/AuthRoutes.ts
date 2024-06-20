@@ -18,8 +18,8 @@ export const authRouter = (app: FastifyInstance): void => {
   const authUseCases = new AuthUseCases(userRepository, jwtService, bcryptService, mailService, userActivationRepository);
   const authController = new AuthController(authUseCases);
 
-  app.post('/auth/login', adaptAuthRoute(authController, 'login')); 
-  app.post('/auth/forgotpassword', adaptAuthRoute(authController, 'forgotPassword')); 
+  app.post('/auth/login', adaptAuthRoute(authController, 'login'));
+  app.post('/auth/forgotpassword', adaptAuthRoute(authController, 'forgotPassword'));
   app.post('/auth/resetpassword', adaptAuthRoute(authController, 'resetPassword'))
   app.get('/auth/verify', adaptAuthRoute(authController, 'verifyUser'))
 } 

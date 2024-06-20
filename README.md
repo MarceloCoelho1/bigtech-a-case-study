@@ -31,7 +31,6 @@ The authentication module handles user sign-up, login, and security features suc
 	- [x] Verification by email
 - [ ] User login
 	- [x] Login with email and password
-	- [ ] Social login Oauth2 (Google, Facebook, GitHub)
 - [ ] Password recovery
 	- [x] Send password recovery by email
 	- [ ] Implementation of security questions

@@ -7,7 +7,7 @@ const envSchema = z.object({
   JWT_SECRET: z.string(),
   JWT_EXPIRES_IN: z.string().default('1h'),
   EMAIL_USERNAME: z.string(),
-  EMAIL_KEY: z.string()
+  EMAIL_KEY: z.string(),
 });
 
 const _env = envSchema.safeParse(process.env)
