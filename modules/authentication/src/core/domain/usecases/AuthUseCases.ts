@@ -7,6 +7,9 @@ import { ICredentials } from "../types/ICredentials";
 import { IMailService } from "../adapters/mail.interface";
 import { IResetPassword } from "../types/IResetPassword";
 import { InvalidToken } from "../errors/InvalidToken";
+import { UserActivationRepository } from "../repositories/UserActivationRepository";
+import { UserNotVerified } from "../errors/UserNotVerified";
+import { UpdateUserDto } from "../../../presentation/dtos/UpdateUserDto";
 
 
 export class AuthUseCases {
@@ -14,7 +17,8 @@ export class AuthUseCases {
         private userRepository: UserRepository,
         private jwtService: IJwtService,
         private bcryptService: IBcryptService,
-        private mailService: IMailService
+        private mailService: IMailService,
+        private userActivationRepository: UserActivationRepository
     ) { }
 
     async login(credentials: ICredentials): Promise<string> {
@@ -29,6 +33,10 @@ export class AuthUseCases {
             throw new IncorrectPassword()
         }
 
+        if(!user.is_verified) {
+            throw new UserNotVerified()
+        }
+
         const token = this.jwtService.sign({ userId: user.id });
         return token
     }
@@ -39,13 +47,21 @@ export class AuthUseCases {
         if (!user) {
             throw new UserNotExists()
         }
+
+        if(!user.is_verified) {
+            throw new UserNotVerified()
+        }
+
         const newToken = this.jwtService.resetToken(user.id)
 
 
         let data = {
             to: email,
             subject: "recovery password",
-            body: newToken
+            body: `
+                <p><strong>Recovery your password!</strong>!</p>
+                <a href="http://localhost:3333/auth/resetpassword?token=${newToken}">Click here!</a>
+            `
         }
         await this.mailService.sendMail(data)
     }
@@ -55,23 +71,50 @@ export class AuthUseCases {
         const { token, password } = data
 
         const verifiedToken = this.jwtService.verify(token)
-        if(!verifiedToken) {
+        if (!verifiedToken) {
             throw new InvalidToken()
         }
         const user = await this.userRepository.findById(verifiedToken.userId)
 
-        if(!user) {
+        if (!user) {
             throw new UserNotExists()
         }
-        
         let newPasswordHash = await this.bcryptService.hash(password);
+        
+        await this.userRepository.update(
+            {
+                id: user.id,
+                password: newPasswordHash
+            } as UpdateUserDto
+        )
 
-        let newUserValues = {
-            ...user,
-            passwordHash: newPasswordHash
+    }
+
+    async verifyUser(token: string): Promise<void> {
+        const decoded = this.jwtService.verify(token);
+
+        if (!decoded) {
+          throw new InvalidToken();
         }
+    
+        const userActivation = await this.userActivationRepository.findByToken(token);
 
-        await this.userRepository.update(newUserValues)
-
+        if (!userActivation || userActivation.expiration_date < new Date()) {
+          throw new InvalidToken();
+        }
+    
+        const user = await this.userRepository.findById(userActivation.user_id);
+ 
+        if (!user) {
+          throw new UserNotExists();
+        }
+    
+        user.is_verified = true;
+        let userData = {
+            id: user.id,
+            is_verified: user.is_verified
+        }
+        await this.userRepository.update(userData);
+        await this.userActivationRepository.delete(userActivation.id); 
     }
 }
