@@ -29,11 +29,11 @@ The authentication module handles user sign-up, login, and security features suc
 
 - [x] User registration
 	- [x] Verification by email
-- [ ] User login
+- [x] User login
 	- [x] Login with email and password
-- [ ] Password recovery
+- [x] Password recovery
 	- [x] Send password recovery by email
-	- [ ] Implementation of security questions
+	- [x] Implementation of security questions
 - [ ] Multifactor authentication
 	- [ ] Implementation of multifactor authentication using email, SMS, or authenticator applications (such as Google Authenticator)
 - [ ] Role-based authentication
