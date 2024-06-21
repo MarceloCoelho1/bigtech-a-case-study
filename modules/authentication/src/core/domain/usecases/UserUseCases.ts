@@ -29,13 +29,13 @@ export class UserUseCases {
     const createdUser = await this.userRepository.create(createUserData);
     const userActivationToken = this.jwtService.sign({ userId: createdUser.id });
     
-    const userActivationDate = {
+    const userActivationData = {
       token: userActivationToken,
       user_id: createdUser.id,
       expiration_date: new Date(Date.now() + 2 * 60 * 60 * 1000),
     }
 
-    await this.userActivationRepository.create(userActivationDate);
+    await this.userActivationRepository.create(userActivationData);
 
 
     const template = `
