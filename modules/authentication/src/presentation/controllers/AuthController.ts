@@ -6,6 +6,7 @@ import { IncorrectPassword } from '../../core/domain/errors/IncorrectPassword';
 import { EmailNotSent } from '../../core/domain/errors/EmailNotSent';
 import { InvalidToken } from '../../core/domain/errors/InvalidToken';
 import { UserNotVerified } from '../../core/domain/errors/UserNotVerified';
+import { ExpiredToken } from '../../core/domain/errors/ExpiredToken';
 
 export class AuthController {
     constructor(private authUseCases: AuthUseCases) { }
@@ -78,10 +79,16 @@ export class AuthController {
                 reply.status(error.statusCode).send({ error: error.message });
             } else if (error instanceof InvalidToken) {
                 reply.status(error.statusCode).send({ error: error.message });
+            } else if(error instanceof ExpiredToken) {
+                reply.status(error.statusCode).send({ error: "Token expired. Sent a new token to your email"});
             } else {
                 reply.status(500).send({ error: 'Internal Server Error' });
             }
 
         }
+    }
+
+    async accessByAdmin(req: FastifyRequest, reply: FastifyReply): Promise<void> {
+        reply.status(200).send({msg: 'verified'})
     }
 }
