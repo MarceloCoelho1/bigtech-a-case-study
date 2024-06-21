@@ -43,11 +43,47 @@ The authentication module handles user sign-up, login, and security features suc
 - [x] Security
 	- [x] Encrypted credentials
 
+
 ### Product Management
 
-This module covers product listing, categorization, inventory management, and product search functionality.
+This module focuses on handling product data and functionality independently. It includes product listing, categorization, inventory management, and search functionality without relying on user management.
 
-*Coming soon*
+- [ ] Product Listing
+	- [ ] Create new product
+	- [ ] Update existing product
+	- [ ] Delete product
+	- [ ] View product details
+- [ ] Product Categorization
+	- [ ] Create new category
+	- [ ] Update existing category
+	- [ ] Delete category
+	- [ ] Assign products to categories
+- [ ] Inventory Management
+	- [ ] Track product stock levels
+	- [ ] Update stock levels
+	- [ ] Notify when stock is low
+- [ ] Product Search Functionality
+	- [ ] Implement search by product name
+	- [ ] Implement search by category
+	- [ ] Implement search by attributes (e.g., price, brand)
+- [ ] Product Reviews and Ratings
+	- [ ] Add product reviews
+	- [ ] Edit product reviews
+	- [ ] Delete product reviews
+	- [ ] Rate products
+- [ ] Product Images
+	- [ ] Upload product images
+	- [ ] Update product images
+	- [ ] Delete product images
+- [ ] Price Management
+	- [ ] Set product prices
+	- [ ] Update product prices
+	- [ ] Apply discounts and promotions
+- [ ] Product Recommendations
+	- [ ] Implement related products
+	- [ ] Implement frequently bought together
+	- [ ] Implement product recommendations based on user behavior
+
 
 ### Order Processing
 
