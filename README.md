@@ -34,8 +34,6 @@ The authentication module handles user sign-up, login, and security features suc
 - [x] Password recovery
 	- [x] Send password recovery by email
 	- [x] Implementation of security questions
-- [ ] Multifactor authentication
-	- [ ] Implementation of multifactor authentication using email, SMS, or authenticator applications (such as Google Authenticator)
 - [x] Role-based authentication
 	- [x] Create some roles such as user, admin, guest
 	- [x] Access control to different parts of the application based on user roles
