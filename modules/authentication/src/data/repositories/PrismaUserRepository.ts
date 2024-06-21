@@ -13,27 +13,28 @@ export class PrismaUserRepository implements UserRepository {
         email: user.email,
         name: user.name,
         password_hash: user.password,
+        role: user.role
       },
     });
 
-    return new User(createdUser.id, createdUser.email, createdUser.name, createdUser.password_hash, createdUser.created_at, createdUser.is_verified);
+    return new User(createdUser.id, createdUser.email, createdUser.name, createdUser.password_hash, createdUser.created_at, createdUser.is_verified, createdUser.role);
   }
 
   async findByEmail(email: string): Promise<User | null> {
     const foundUser = await prisma.user.findUnique({ where: { email } });
     if (!foundUser) return null;
-    return new User(foundUser.id, foundUser.email, foundUser.name, foundUser.password_hash, foundUser.created_at, foundUser.is_verified);
+    return new User(foundUser.id, foundUser.email, foundUser.name, foundUser.password_hash, foundUser.created_at, foundUser.is_verified, foundUser.role);
   }
 
   async findById(id: string): Promise<User | null> {
     const foundUser = await prisma.user.findUnique({ where: { id } });
     if (!foundUser) return null;
-    return new User(foundUser.id, foundUser.email, foundUser.name, foundUser.password_hash, foundUser.created_at, foundUser.is_verified);
+    return new User(foundUser.id, foundUser.email, foundUser.name, foundUser.password_hash, foundUser.created_at, foundUser.is_verified, foundUser.role);
   }
 
   async findAll(): Promise<User[]> {
     const users = await prisma.user.findMany();
-    return users.map(user => new User(user.id, user.email, user.name, user.password_hash, user.created_at, user.is_verified));
+    return users.map(user => new User(user.id, user.email, user.name, user.password_hash, user.created_at, user.is_verified, user.role));
   }
 
   async update(user: UpdateUserDto): Promise<User> {
@@ -54,7 +55,7 @@ export class PrismaUserRepository implements UserRepository {
       data: updateData,
     });
 
-    return new User(updatedUser.id, updatedUser.email, updatedUser.name, updatedUser.password_hash, updatedUser.created_at, updatedUser.is_verified);
+    return new User(updatedUser.id, updatedUser.email, updatedUser.name, updatedUser.password_hash, updatedUser.created_at, updatedUser.is_verified, updatedUser.role);
   }
 
   async delete(id: string): Promise<void> {
