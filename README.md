@@ -40,8 +40,8 @@ The authentication module handles user sign-up, login, and security features suc
 - [x] Tokens and sessions
 	- [x] User session management
 	- [x] JWT
-- [ ] Monitoring and security
-	- [ ] Monitoring of suspicious login attempts
+- [x] Security
+	- [x] Monitoring of suspicious login attempts
 
 ### Product Management
 
