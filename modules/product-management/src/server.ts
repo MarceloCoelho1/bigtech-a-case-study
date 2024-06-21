@@ -1,12 +1,11 @@
 import fastify from 'fastify'
 import { env } from './env';
 import { prisma } from './data/datasources/prismaClient';
+import { productRoutes } from './http/routes/productRoutes';
 
 const app = fastify();
 
-app.get('/', async (request, reply) => {
-    reply.status(200).send({msg: "Hello World!"})
-})
+productRoutes(app)
 
 
 const start = async () => {
@@ -14,7 +13,7 @@ const start = async () => {
     await app.listen({ port: env.PORT });
     console.log(`🔥 Server is running on port ${env.PORT}`);
 
-    prisma.$connect()
+    await prisma.$connect()
     console.log("🔥 db connected")
   } catch (err) {
     app.log.error(err);
