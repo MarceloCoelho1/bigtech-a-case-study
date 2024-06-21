@@ -21,6 +21,7 @@ model User {
   created_at     DateTime        @default(now())
   UserActivation UserActivation?
   is_verified    Boolean         @default(false)
+  role           String          @default("user")
 
   @@map("users")
 }
