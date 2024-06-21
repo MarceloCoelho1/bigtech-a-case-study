@@ -1,0 +1,26 @@
+{
+  "name": "product-management",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsx watch src/server.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@prisma/client": "^5.15.1",
+    "dotenv": "^16.4.5",
+    "fastify": "^4.28.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.7",
+    "prisma": "^5.15.1",
+    "tsx": "^4.15.7",
+    "typescript": "^5.5.2"
+  }
+}
