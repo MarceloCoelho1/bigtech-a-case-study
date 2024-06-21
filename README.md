@@ -25,6 +25,8 @@ This project aims to deepen my knowledge and learning by researching how these f
 
 ### Authentication
 
+technologies: Typescript, fastify, docker, prisma, postgresql, Jwt token, bcrypt, nodemailer.
+
 The authentication module handles user sign-up, login, and security features such as password hashing, multi-factor authentication, Role-based authentication and session management.
 
 - [x] User registration
