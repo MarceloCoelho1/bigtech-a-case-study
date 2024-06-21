@@ -5,6 +5,7 @@ export class User {
     public name: string,
     public passwordHash: string,
     public createdAt: Date,
-    public is_verified: boolean
+    public is_verified: boolean,
+    public role: string
   ) {}
 }
