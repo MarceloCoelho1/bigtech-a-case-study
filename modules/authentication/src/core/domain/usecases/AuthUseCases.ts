@@ -10,6 +10,7 @@ import { InvalidToken } from "../errors/InvalidToken";
 import { UserActivationRepository } from "../repositories/UserActivationRepository";
 import { UserNotVerified } from "../errors/UserNotVerified";
 import { UpdateUserDto } from "../../../presentation/dtos/UpdateUserDto";
+import { TokenExpired } from "../errors/TokenExpired";
 
 
 export class AuthUseCases {
@@ -33,7 +34,7 @@ export class AuthUseCases {
             throw new IncorrectPassword()
         }
 
-        if(!user.is_verified) {
+        if (!user.is_verified) {
             throw new UserNotVerified()
         }
 
@@ -48,7 +49,7 @@ export class AuthUseCases {
             throw new UserNotExists()
         }
 
-        if(!user.is_verified) {
+        if (!user.is_verified) {
             throw new UserNotVerified()
         }
 
@@ -80,7 +81,7 @@ export class AuthUseCases {
             throw new UserNotExists()
         }
         let newPasswordHash = await this.bcryptService.hash(password);
-        
+
         await this.userRepository.update(
             {
                 id: user.id,
@@ -94,27 +95,60 @@ export class AuthUseCases {
         const decoded = this.jwtService.verify(token);
 
         if (!decoded) {
-          throw new InvalidToken();
+            throw new InvalidToken();
         }
-    
+
         const userActivation = await this.userActivationRepository.findByToken(token);
 
-        if (!userActivation || userActivation.expiration_date < new Date()) {
-          throw new InvalidToken();
+        if (!userActivation) {
+            throw new InvalidToken();
         }
+
+        if (userActivation.expiration_date < new Date()) {
+            try {
+                const userId = userActivation.user_id;
     
+                const newActivationToken = this.jwtService.sign({ userId });
+    
+                const user = await this.userRepository.findById(userId)
+
+                if(!user) {
+                    throw new UserNotExists()
+                }
+
+                const template = `
+                    <p><strong>Recovery your password!</strong></p>
+                    <a href="http://localhost:3333/auth/verify?token=${newActivationToken}">Click here!</a>
+                `;
+    
+                const emailData = {
+                    to: user.email,
+                    subject: "Verify Your Email",
+                    body: template
+                };
+    
+                await this.mailService.sendMail(emailData);
+    
+                console.log(`Token expired. Sent a new token to ${user.email}`);
+                throw new TokenExpired()
+            } catch (error) {
+                console.error("Error handling expired token:", error);
+                throw new Error("Failed to handle expired token");
+            }
+        }
+
         const user = await this.userRepository.findById(userActivation.user_id);
- 
+
         if (!user) {
-          throw new UserNotExists();
+            throw new UserNotExists();
         }
-    
+
         user.is_verified = true;
         let userData = {
             id: user.id,
             is_verified: user.is_verified
         }
         await this.userRepository.update(userData);
-        await this.userActivationRepository.delete(userActivation.id); 
+        await this.userActivationRepository.delete(userActivation.id);
     }
 }
