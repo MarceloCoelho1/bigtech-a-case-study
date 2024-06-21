@@ -10,7 +10,7 @@ import { InvalidToken } from "../errors/InvalidToken";
 import { UserActivationRepository } from "../repositories/UserActivationRepository";
 import { UserNotVerified } from "../errors/UserNotVerified";
 import { UpdateUserDto } from "../../../presentation/dtos/UpdateUserDto";
-import { TokenExpired } from "../errors/TokenExpired";
+import { ExpiredToken } from "../errors/ExpiredToken";
 
 
 export class AuthUseCases {
@@ -130,7 +130,7 @@ export class AuthUseCases {
                 await this.mailService.sendMail(emailData);
     
                 console.log(`Token expired. Sent a new token to ${user.email}`);
-                throw new TokenExpired()
+                throw new ExpiredToken()
             } catch (error) {
                 console.error("Error handling expired token:", error);
                 throw new Error("Failed to handle expired token");
