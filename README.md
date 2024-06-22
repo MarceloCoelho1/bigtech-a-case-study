@@ -53,7 +53,7 @@ This module focuses on handling product data and functionality independently. It
 - [ ] Product Listing
 	- [x] Create new product
 	- [x] Update existing product
-	- [ ] Delete product
+	- [x] Delete product
 	- [ ] View product details
 - [ ] Product Categorization
 	- [ ] Create new category
