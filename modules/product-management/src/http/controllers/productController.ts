@@ -44,8 +44,23 @@ export class ProductController {
         } catch (error) {
             if (error instanceof ProductNotFound) {
                 reply.status(error.statusCode).send({ error: error.message });
+            } else {
+                reply.status(500).send({ error: 'Internal Server Error' });
             }
-            reply.status(500).send({ error: 'Internal Server Error' });
+        }
+    }
+
+    async deleteProduct(req: FastifyRequest, reply: FastifyReply) {
+        try {
+            const { id } = req.params as { id: string }
+            await this.ProductUsecases.deleteProduct(id)
+            reply.status(204)
+        } catch (error) {
+            if (error instanceof ProductNotFound) {
+                reply.status(error.statusCode).send({ error: error.message });
+            } else {
+                reply.status(500).send({ error: 'Internal Server Error' });
+            }
         }
     }
 }
