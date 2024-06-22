@@ -9,6 +9,7 @@ export const productRoutes = (app: FastifyInstance): void => {
     const productController = new ProductController(productUsecases)
 
     app.get('/products', (req, reply) => productController.getAllProducts(req, reply));
+    app.get('/products/:id', (req, reply) => productController.findProductById(req, reply))
     app.post('/products', (req, reply) => productController.createProduct(req, reply));
     app.patch('/products/:id', (req, reply) => productController.updateProduct(req, reply))
     app.delete('/products/:id', (req, reply) => productController.deleteProduct(req, reply))

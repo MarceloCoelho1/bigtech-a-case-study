@@ -63,4 +63,18 @@ export class ProductController {
             }
         }
     }
+
+    async findProductById(req: FastifyRequest, reply: FastifyReply) {
+        try {
+            const { id } = req.params as { id: string }
+            const product = await this.ProductUsecases.findById(id)
+            reply.status(200).send({ product: product })
+        } catch(error) {
+            if (error instanceof ProductNotFound) {
+                reply.status(error.statusCode).send({ error: error.message });
+            } else {
+                reply.status(500).send({ error: 'Internal Server Error' });
+            }
+        }
+    }
 }
