@@ -15,7 +15,6 @@ export class ProductController {
             const product = await this.ProductUsecases.createProduct(createProductData)
             reply.status(201).send({ product: product })
         } catch (error) {
-            console.error(error)
             reply.status(500).send({ error: 'Internal Server Error' });
         }
     }

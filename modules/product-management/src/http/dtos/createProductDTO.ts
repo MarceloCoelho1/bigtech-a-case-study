@@ -4,4 +4,5 @@ export interface CreateProductDTO {
     reviews: number;
     description: string;
     quantity_in_stock: number;
+    category_id: number
 }
