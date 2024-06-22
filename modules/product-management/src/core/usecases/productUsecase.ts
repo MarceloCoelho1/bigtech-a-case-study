@@ -1,5 +1,7 @@
 import { CreateProductDTO } from "../../http/dtos/createProductDTO";
+import { UpdateProductDTO } from "../../http/dtos/updateProductDTO";
 import { Product } from "../entities/product";
+import { ProductNotFound } from "../errors/productNotFoundError";
 import { IProductRepository } from "../repositories/IProductRepository";
 
 export class ProductUsecases {
@@ -15,5 +17,22 @@ export class ProductUsecases {
     async getAllProducts(): Promise<Product[]> {
         const product = await this.productRepository.getAllProducts()
         return product
+    }
+
+    async findById(id: string): Promise<Product | null> {
+        const product = await this.productRepository.findById(id)
+        return product
+    }
+
+    async updateProduct(data: UpdateProductDTO): Promise<Product> {
+
+        const product = await this.findById(data.id)
+
+        if(!product) {
+            throw new ProductNotFound()
+        }
+
+        const updatedProduct = await this.productRepository.updateProduct(data)
+        return updatedProduct
     }
 }
