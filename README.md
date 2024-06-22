@@ -56,7 +56,7 @@ This module focuses on handling product data and functionality independently. It
 	- [x] Delete product
 	- [x] View product details
 - [ ] Product Categorization
-	- [ ] Create new category
+	- [x] Create new category
 	- [ ] Update existing category
 	- [ ] Delete category
 	- [ ] Assign products to categories
