@@ -21,6 +21,11 @@ export class ProductUsecases {
 
     async findById(id: string): Promise<Product | null> {
         const product = await this.productRepository.findById(id)
+        
+        if(!product) {
+            throw new ProductNotFound()
+        }
+
         return product
     }
 
