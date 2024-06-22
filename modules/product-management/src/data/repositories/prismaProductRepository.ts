@@ -30,9 +30,12 @@ export class PrismaProductRepository implements IProductRepository {
         return updatedProduct
     }
 
-
     async findById(id: string): Promise<Product | null> {
         const product = await prisma.product.findUnique({ where: { id } })
         return product
+    }
+
+    async deleteProduct(id: string): Promise<void> {
+        await prisma.product.delete({ where: { id } })
     }
 }

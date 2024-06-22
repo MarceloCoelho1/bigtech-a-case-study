@@ -35,4 +35,15 @@ export class ProductUsecases {
         const updatedProduct = await this.productRepository.updateProduct(data)
         return updatedProduct
     }
+
+    async deleteProduct(id: string): Promise<void> {
+
+        const product = await this.findById(id)
+
+        if(!product) {
+            throw new ProductNotFound()
+        }
+
+        await this.productRepository.deleteProduct(id)
+    } 
 }
