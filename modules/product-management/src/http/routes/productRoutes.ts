@@ -10,4 +10,5 @@ export const productRoutes = (app: FastifyInstance): void => {
 
     app.get('/products', (req, reply) => productController.getAllProducts(req, reply));
     app.post('/products', (req, reply) => productController.createProduct(req, reply));
+    app.patch('/products/:id', (req, reply) => productController.updateProduct(req, reply))
 }
