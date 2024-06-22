@@ -51,7 +51,7 @@ The authentication module handles user sign-up, login, and security features suc
 This module focuses on handling product data and functionality independently. It includes product listing, categorization, inventory management, and search functionality without relying on user management.
 
 - [ ] Product Listing
-	- [ ] Create new product
+	- [x] Create new product
 	- [ ] Update existing product
 	- [ ] Delete product
 	- [ ] View product details
