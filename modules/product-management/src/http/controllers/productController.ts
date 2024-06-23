@@ -6,6 +6,7 @@ import { ProductNotFound } from "../../core/errors/productNotFoundError";
 import { BuyAProductDTO } from "../dtos/buyAProductDTO";
 import { ProductOutOfStock } from "../../core/errors/productOutOfStockError";
 import { UpdateStockLevel } from "../dtos/updateStockLevelDTO";
+import { SearchQueryDTO } from "../dtos/searchQueryDTO";
 
 export class ProductController {
     constructor(
@@ -101,6 +102,28 @@ export class ProductController {
             const updateStockLevelData = req.body as UpdateStockLevel
             const product = await this.ProductUsecases.updateStockLevel(updateStockLevelData)
             reply.status(200).send({product: product})
+        } catch(error) {
+            if (error instanceof ProductNotFound) {
+                reply.status(error.statusCode).send({ error: error.message });
+            } else {
+                reply.status(500).send({ error: 'Internal Server Error' });
+            }
+        }
+    }
+
+    async searchProducts(req: FastifyRequest, reply: FastifyReply) {
+        try {
+            const queryData = req.query as SearchQueryDTO
+
+            const formatedQueryData = {
+                name: queryData.name || "",
+                categoryId: Number(queryData.categoryId) || undefined, 
+                priceMin: Number(queryData.priceMin) || undefined, 
+                priceMax: Number(queryData.priceMax) || undefined, 
+            }
+            
+            const products = await this.ProductUsecases.searchProducts(formatedQueryData)
+            reply.status(200).send({products: products})
         } catch(error) {
             if (error instanceof ProductNotFound) {
                 reply.status(error.statusCode).send({ error: error.message });

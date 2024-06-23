@@ -14,6 +14,6 @@ export const categoryRoutes = (app: FastifyInstance): void => {
     app.post('/category', (req, reply) => categoryController.createCategory(req, reply))
     app.patch('/category/:id', (req, reply) => categoryController.updateCategory(req, reply))
     app.delete('/category/:id', (req, reply) => categoryController.deleteCategory(req, reply))
-    app.patch('/categories/assign-product', (req, reply) => categoryController.assignProductsToCategoryController(req, reply))
+    app.patch('/category/assign-product', (req, reply) => categoryController.assignProductsToCategoryController(req, reply))
 
 }
