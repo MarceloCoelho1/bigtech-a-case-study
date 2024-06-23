@@ -3,6 +3,9 @@ import { ProductUsecases } from "../../core/usecases/productUsecase";
 import { CreateProductDTO } from "../dtos/createProductDTO";
 import { UpdateProductDTO } from "../dtos/updateProductDTO";
 import { ProductNotFound } from "../../core/errors/productNotFoundError";
+import { BuyAProductDTO } from "../dtos/buyAProductDTO";
+import { ProductOutOfStock } from "../../core/errors/productOutOfStockError";
+import { UpdateStockLevel } from "../dtos/updateStockLevelDTO";
 
 export class ProductController {
     constructor(
@@ -68,6 +71,36 @@ export class ProductController {
             const { id } = req.params as { id: string }
             const product = await this.ProductUsecases.findById(id)
             reply.status(200).send({ product: product })
+        } catch(error) {
+            if (error instanceof ProductNotFound) {
+                reply.status(error.statusCode).send({ error: error.message });
+            } else {
+                reply.status(500).send({ error: 'Internal Server Error' });
+            }
+        }
+    }
+
+    async buyAProduct(req: FastifyRequest, reply: FastifyReply) {
+        try {
+            const buyAProductData = req.body as BuyAProductDTO
+            await this.ProductUsecases.buyAProduct(buyAProductData)
+            reply.status(200)
+        } catch(error) {
+            if (error instanceof ProductNotFound) {
+                reply.status(error.statusCode).send({ error: error.message });
+            } else if (error instanceof ProductOutOfStock) {
+                reply.status(error.statusCode).send({ error: error.message });
+            } else {
+                reply.status(500).send({ error: 'Internal Server Error' });
+            }
+        }
+    }
+
+    async updateStockLevel(req: FastifyRequest, reply: FastifyReply) {
+        try {
+            const updateStockLevelData = req.body as UpdateStockLevel
+            const product = await this.ProductUsecases.updateStockLevel(updateStockLevelData)
+            reply.status(200).send({product: product})
         } catch(error) {
             if (error instanceof ProductNotFound) {
                 reply.status(error.statusCode).send({ error: error.message });
