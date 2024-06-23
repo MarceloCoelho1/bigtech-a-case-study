@@ -60,10 +60,10 @@ This module focuses on handling product data and functionality independently. It
 	- [x] Update existing category
 	- [x] Delete category
 	- [x] Assign products to categories
-- [ ] Inventory Management
-	- [ ] Track product stock levels
-	- [ ] Update stock levels
-	- [ ] Notify when stock is low
+- [x] Inventory Management
+	- [x] Track product stock levels
+	- [x] Update stock levels
+	- [x] Notify when stock is low
 - [ ] Product Search Functionality
 	- [ ] Implement search by product name
 	- [ ] Implement search by category
