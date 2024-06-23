@@ -55,11 +55,11 @@ This module focuses on handling product data and functionality independently. It
 	- [x] Update existing product
 	- [x] Delete product
 	- [x] View product details
-- [ ] Product Categorization
+- [x] Product Categorization
 	- [x] Create new category
-	- [ ] Update existing category
-	- [ ] Delete category
-	- [ ] Assign products to categories
+	- [x] Update existing category
+	- [x] Delete category
+	- [x] Assign products to categories
 - [ ] Inventory Management
 	- [ ] Track product stock levels
 	- [ ] Update stock levels
