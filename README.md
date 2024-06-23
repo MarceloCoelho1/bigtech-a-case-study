@@ -64,10 +64,10 @@ This module focuses on handling product data and functionality independently. It
 	- [x] Track product stock levels
 	- [x] Update stock levels
 	- [x] Notify when stock is low
-- [ ] Product Search Functionality
-	- [ ] Implement search by product name
-	- [ ] Implement search by category
-	- [ ] Implement search by attributes (e.g., price, brand)
+- [x] Product Search Functionality
+	- [x] Implement search by product name
+	- [x] Implement search by category
+	- [x] Implement search by attributes (e.g., price, brand)
 - [ ] Product Reviews and Ratings
 	- [ ] Add product reviews
 	- [ ] Edit product reviews
