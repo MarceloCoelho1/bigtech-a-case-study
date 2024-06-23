@@ -5,7 +5,8 @@ export class Product {
         public price: number,
         public reviews: number,
         public description: string,
-        public quantity_in_stock: number
+        public quantity_in_stock: number,
+        public category_id: number | null
     ) {}
 }
 
