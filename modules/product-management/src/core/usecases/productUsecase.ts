@@ -1,5 +1,6 @@
 import { BuyAProductDTO } from "../../http/dtos/buyAProductDTO";
 import { CreateProductDTO } from "../../http/dtos/createProductDTO";
+import { SearchQueryDTO } from "../../http/dtos/searchQueryDTO";
 import { UpdateProductDTO } from "../../http/dtos/updateProductDTO";
 import { UpdateStockLevel } from "../../http/dtos/updateStockLevelDTO";
 import { Product } from "../entities/product";
@@ -89,5 +90,8 @@ export class ProductUsecases {
         return updatedProduct
     }
 
-
+    async searchProducts(data: SearchQueryDTO): Promise<Product[] | null> {
+        const products = await this.productRepository.searchProducts(data)
+        return products
+    }
 }

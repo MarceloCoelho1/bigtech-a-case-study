@@ -5,6 +5,7 @@ import { CreateProductDTO } from "../../http/dtos/createProductDTO";
 import { UpdateProductDTO } from "../../http/dtos/updateProductDTO";
 import { BuyAProductDTO } from "../../http/dtos/buyAProductDTO";
 import { UpdateStockLevel } from "../../http/dtos/updateStockLevelDTO";
+import { SearchQueryDTO } from "../../http/dtos/searchQueryDTO";
 
 export class PrismaProductRepository implements IProductRepository {
     
@@ -63,5 +64,21 @@ export class PrismaProductRepository implements IProductRepository {
         })
 
         return product
+    }
+
+    async searchProducts(data: SearchQueryDTO): Promise<Product[] | null> {
+        const products = await prisma.product.findMany({
+            where: {
+                name: {contains: data.name, mode: 'insensitive' },
+                price: {
+                    gte: data.priceMin,
+                    lte: data.priceMax
+                },
+                category_id: data.categoryId
+
+            }
+        })
+
+        return products
     }
 }
