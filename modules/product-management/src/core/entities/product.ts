@@ -6,7 +6,8 @@ export class Product {
         public reviews: number,
         public description: string,
         public quantity_in_stock: number,
-        public category_id: number | null
+        public category_id: number | null,
+        public low_stock_threshold: number
     ) {}
 }
 
