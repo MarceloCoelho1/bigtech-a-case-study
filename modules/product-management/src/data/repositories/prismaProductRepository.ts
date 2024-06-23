@@ -3,6 +3,8 @@ import { prisma } from "../datasources/prismaClient";
 import { Product } from "../../core/entities/product";
 import { CreateProductDTO } from "../../http/dtos/createProductDTO";
 import { UpdateProductDTO } from "../../http/dtos/updateProductDTO";
+import { BuyAProductDTO } from "../../http/dtos/buyAProductDTO";
+import { UpdateStockLevel } from "../../http/dtos/updateStockLevelDTO";
 
 export class PrismaProductRepository implements IProductRepository {
     
@@ -37,5 +39,29 @@ export class PrismaProductRepository implements IProductRepository {
 
     async deleteProduct(id: string): Promise<void> {
         await prisma.product.delete({ where: { id } })
+    }
+
+    async buyAProduct(data: BuyAProductDTO, newQuantityInStock: number): Promise<void> {
+        await prisma.product.update({
+            where: {
+                id: data.productId
+            },
+            data: {
+                quantity_in_stock: newQuantityInStock
+            }
+        })
+    }
+
+    async updateStockLevel(productId: string, newQuantityInStock: number): Promise<Product> {
+        const product = await prisma.product.update({
+            where: {
+                id: productId
+            },
+            data: {
+                quantity_in_stock: newQuantityInStock
+            }
+        })
+
+        return product
     }
 }
