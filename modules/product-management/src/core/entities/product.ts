@@ -9,7 +9,8 @@ export class Product {
         public quantity_in_stock: number,
         public category_id: number | null,
         public low_stock_threshold: number,
-        public reviews: Review[]
+        public reviews: Review[],
+        public url_image: string | null
     ) {}
 }
 
