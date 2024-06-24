@@ -24,6 +24,7 @@ model Product {
   category_id         Int?
   reviews             Review[]
   url_image           String?
+  price_with_discount Float?
 
   @@map("products")
 }
