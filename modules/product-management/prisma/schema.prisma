@@ -23,6 +23,7 @@ model Product {
   category            Category? @relation(fields: [category_id], references: [id])
   category_id         Int?
   reviews             Review[]
+  url_image           String?
 
   @@map("products")
 }
