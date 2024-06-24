@@ -29,20 +29,20 @@ technologies: Typescript, fastify, docker, prisma, postgresql, JwtToken, bcrypt,
 
 The authentication module handles user sign-up, login, and security features such as password hashing, multi-factor authentication, Role-based authentication and session management.
 
-- [x] User registration
+- [x] **User registration**
 	- [x] Verification by email
-- [x] User login
+- [x] **User login**
 	- [x] Login with email and password
-- [x] Password recovery
+- [x] **Password recovery**
 	- [x] Send password recovery by email
 	- [x] Implementation of security questions
-- [x] Role-based authentication
+- [x] **Role-based authentication**
 	- [x] Create some roles such as user, admin, guest
 	- [x] Access control to different parts of the application based on user roles
-- [x] Tokens and sessions
+- [x] **Tokens and sessions**
 	- [x] User session management
 	- [x] JWT
-- [x] Security
+- [x] **Security**
 	- [x] Encrypted credentials
 
 
@@ -52,34 +52,34 @@ technologies: Typescript, **firebase**, fastify, docker, prisma, postgresql, nod
 
 This module focuses on handling product data and functionality independently. It includes product listing, categorization, inventory management, and search functionality without relying on user management.
 
-- [x] Product Listing
+- [x] **Product Listing**
 	- [x] Create new product
 	- [x] Update existing product
 	- [x] Delete product
 	- [x] View product details
-- [x] Product Categorization
+- [x] **Product Categorization**
 	- [x] Create new category
 	- [x] Update existing category
 	- [x] Delete category
 	- [x] Assign products to categories
-- [x] Inventory Management
+- [x] **Inventory Management**
 	- [x] Track product stock levels
 	- [x] Update stock levels
 	- [x] Notify when stock is low
-- [x] Product Search Functionality
+- [x] **Product Search Functionality**
 	- [x] Implement search by product name
 	- [x] Implement search by category
 	- [x] Implement search by attributes (e.g., price, brand)
-- [x] Product Reviews and Ratings
+- [x] **Product Reviews and Ratings**
 	- [x] Add product reviews
 	- [x] Edit product reviews
 	- [x] Delete product reviews
 	- [x] Rate products
-- [x] Product Images
+- [x] **Product Images**
 	- [x] Upload product images
 	- [x] Update product images
 	- [x] Delete product images
-- [x] Price Management
+- [x] **Price Management**
 	- [x] Set product prices
 	- [x] Update product prices
 	- [x] Apply discounts and promotions
@@ -88,7 +88,75 @@ This module focuses on handling product data and functionality independently. It
 
 The order processing module manages the lifecycle of an order from cart to checkout, payment processing, and order confirmation.
 
-*Coming soon*
+- [ ] **Cart Management**
+  - [ ] Add items to cart
+  - [ ] Remove items from cart
+  - [ ] Update item quantities in cart
+  - [ ] View cart items
+  - [ ] Clear cart
+
+- [ ] **Checkout Process**
+  - [ ] Initiate checkout
+  - [ ] Apply discount codes
+  - [ ] Calculate taxes and shipping costs
+  - [ ] Collect shipping details
+  - [ ] Collect billing details
+
+- [ ] **Payment Processing**
+  - [ ] Integrate with a payment gateway (e.g., Stripe)
+  - [ ] Handle payment authorization
+  - [ ] Capture payment
+  - [ ] Handle payment failures
+  - [ ] Issue refunds
+
+- [ ] **Order Management**
+  - [ ] Create order
+  - [ ] Update order status (e.g., pending, paid, shipped, delivered)
+  - [ ] Cancel order
+  - [ ] View order details
+  - [ ] Track order history
+
+- [ ] **Inventory Management**
+  - [ ] Update stock levels after order placement
+  - [ ] Check stock availability during checkout
+  - [ ] Notify when stock is low
+  - [ ] Prevent overselling
+
+- [ ] **Messaging and Notifications**
+  - [ ] Send order confirmation email
+  - [ ] Send payment receipt email
+  - [ ] Send shipping notification email
+  - [ ] Send delivery confirmation email
+  - [ ] Notify users of cart abandonment
+
+- [ ] **Order Analytics**
+  - [ ] Track sales metrics
+  - [ ] Generate sales reports
+  - [ ] Analyze order trends
+  - [ ] Monitor payment gateway performance
+
+- [ ] **Security and Compliance**
+  - [ ] Implement secure payment handling
+  - [ ] Ensure compliance with PCI DSS (Payment Card Industry Data Security Standard)
+  - [ ] Handle sensitive data securely (e.g., encryption)
+  - [ ] Implement fraud detection mechanisms
+
+- [ ] **Multi-currency Support**
+  - [ ] Allow payments in different currencies
+  - [ ] Display prices based on user location
+
+- [ ] **Subscription Management**
+  - [ ] Handle recurring payments
+  - [ ] Manage subscription plans
+  - [ ] Notify users of subscription renewals
+
+- [ ] **Internationalization**
+  - [ ] Support multiple languages
+  - [ ] Localize tax and shipping calculations
+
+- [ ] **Advanced Order Routing**
+  - [ ] Route orders to nearest warehouse
+  - [ ] Optimize shipping routes
 
 ### Logistics
 
