@@ -77,15 +77,10 @@ This module focuses on handling product data and functionality independently. It
 	- [x] Upload product images
 	- [x] Update product images
 	- [x] Delete product images
-- [ ] Price Management
-	- [ ] Set product prices
-	- [ ] Update product prices
-	- [ ] Apply discounts and promotions
-- [ ] Product Recommendations
-	- [ ] Implement related products
-	- [ ] Implement frequently bought together
-	- [ ] Implement product recommendations based on user behavior
-
+- [x] Price Management
+	- [x] Set product prices
+	- [x] Update product prices
+	- [x] Apply discounts and promotions
 
 ### Order Processing
 
