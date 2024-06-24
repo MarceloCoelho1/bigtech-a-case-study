@@ -98,4 +98,21 @@ export class PrismaProductRepository implements IProductRepository {
 
         return products
     }
+
+    async updateProductImage(id: string, image: string): Promise<Product> {
+        const product = await prisma.product.update({
+            where: {
+                id
+            },
+            data: {
+                url_image: image
+            },
+            include: {
+                reviews: true
+            }
+        })
+
+        return product
+
+    }
 }

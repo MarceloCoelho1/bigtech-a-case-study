@@ -3,6 +3,7 @@ import { CreateProductDTO } from "../../http/dtos/createProductDTO";
 import { SearchQueryDTO } from "../../http/dtos/searchQueryDTO";
 import { UpdateProductDTO } from "../../http/dtos/updateProductDTO";
 import { UpdateStockLevel } from "../../http/dtos/updateStockLevelDTO";
+import { uploadImageLib } from "../../lib/upload-image";
 import { Product } from "../entities/product";
 import { ProductNotFound } from "../errors/productNotFoundError";
 import { ProductOutOfStock } from "../errors/productOutOfStockError";
@@ -93,5 +94,22 @@ export class ProductUsecases {
     async searchProducts(data: SearchQueryDTO): Promise<Product[] | null> {
         const products = await this.productRepository.searchProducts(data)
         return products
+    }
+
+    async uploadProductImage(file: Uint8Array, id: string, mimitype: string) {
+        const product = await this.findById(id)
+
+        if(!product) {
+            throw new ProductNotFound()
+        }
+
+        const response = await uploadImageLib(file, id, mimitype)
+
+        if(!response.downloadURL) {
+            return response
+        }
+
+        const updateProduct = await this.productRepository.updateProductImage(id, response.downloadURL)
+        return updateProduct
     }
 }
