@@ -1,19 +1,23 @@
 import { BuyAProductDTO } from "../../http/dtos/buyAProductDTO";
 import { CreateProductDTO } from "../../http/dtos/createProductDTO";
 import { SearchQueryDTO } from "../../http/dtos/searchQueryDTO";
+import { SetDiscountDTO } from "../../http/dtos/setDiscountDTO";
 import { UpdateProductDTO } from "../../http/dtos/updateProductDTO";
 import { UpdateStockLevel } from "../../http/dtos/updateStockLevelDTO";
 import { deleteImageLib, uploadImageLib } from "../../lib/upload-image";
 import { Product } from "../entities/product";
+import { CategoryNotFound } from "../errors/categoryNotFoundError";
 import { DeleteImageError } from "../errors/deleteImageError";
-import { ProductImageNotFound } from "../errors/productImageNotFountError";
+import { ProductImageNotFound } from "../errors/productImageNotFoundError";
 import { ProductNotFound } from "../errors/productNotFoundError";
 import { ProductOutOfStock } from "../errors/productOutOfStockError";
+import { ICategoryRepository } from "../repositories/ICategoryRepository";
 import { IProductRepository } from "../repositories/IProductRepository";
 
 export class ProductUsecases {
     constructor(
-        private productRepository: IProductRepository
+        private productRepository: IProductRepository,
+        private categoryRepository: ICategoryRepository
     ) {}
 
     async createProduct(data: CreateProductDTO): Promise<Product> {
@@ -136,5 +140,15 @@ export class ProductUsecases {
 
         const updatedProduct = await this.productRepository.deleteProductImage(id)
         return updatedProduct
+    }
+
+    async setDiscountByCategory(data: SetDiscountDTO): Promise<void> {
+        const category = await this.categoryRepository.getCategoryById(data.categoryId)
+
+        if(!category) {
+            throw new CategoryNotFound()
+        }
+
+        await this.productRepository.setDiscount(data)
     }
 }

@@ -3,6 +3,7 @@ import { CreateCategoryDTO } from "../../http/dtos/createCategoryDTO";
 import { prisma } from "../datasources/prismaClient";
 import { Category } from "../../core/entities/category";
 import { UpdateCategoryDTO } from "../../http/dtos/updateCategoryDTO";
+import { SetDiscountDTO } from "../../http/dtos/setDiscountDTO";
 
 export class PrismaCategoryRepository implements ICategoryRepository {
     async create(data: CreateCategoryDTO): Promise<Category> {

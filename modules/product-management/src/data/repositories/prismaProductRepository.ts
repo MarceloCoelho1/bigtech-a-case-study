@@ -5,9 +5,10 @@ import { CreateProductDTO } from "../../http/dtos/createProductDTO";
 import { UpdateProductDTO } from "../../http/dtos/updateProductDTO";
 import { BuyAProductDTO } from "../../http/dtos/buyAProductDTO";
 import { SearchQueryDTO } from "../../http/dtos/searchQueryDTO";
+import { SetDiscountDTO } from "../../http/dtos/setDiscountDTO";
 
 export class PrismaProductRepository implements IProductRepository {
-    
+
     async create(data: CreateProductDTO): Promise<Product> {
         const product = await prisma.product.create({
             data,
@@ -43,14 +44,16 @@ export class PrismaProductRepository implements IProductRepository {
     }
 
     async findById(id: string): Promise<Product | null> {
-        const product = await prisma.product.findUnique({ where: { id }, include: {
-            reviews: true
-        } })
+        const product = await prisma.product.findUnique({
+            where: { id }, include: {
+                reviews: true
+            }
+        })
         return product
     }
 
     async deleteProduct(id: string): Promise<void> {
-        await prisma.product.delete({ where: { id }, include: {reviews: true} })
+        await prisma.product.delete({ where: { id }, include: { reviews: true } })
     }
 
     async buyAProduct(data: BuyAProductDTO, newQuantityInStock: number): Promise<void> {
@@ -83,7 +86,7 @@ export class PrismaProductRepository implements IProductRepository {
     async searchProducts(data: SearchQueryDTO): Promise<Product[] | null> {
         const products = await prisma.product.findMany({
             where: {
-                name: {contains: data.name, mode: 'insensitive' },
+                name: { contains: data.name, mode: 'insensitive' },
                 price: {
                     gte: data.priceMin,
                     lte: data.priceMax
@@ -128,5 +131,16 @@ export class PrismaProductRepository implements IProductRepository {
         })
 
         return product
+    }
+
+    async setDiscount(data: SetDiscountDTO): Promise<void> {
+
+
+        await prisma.$executeRaw`
+            UPDATE products
+            SET price_with_discount = price - (price * ${data.percentage} / 100)
+            WHERE category_id = ${data.categoryId}
+        `;
+
     }
 }
