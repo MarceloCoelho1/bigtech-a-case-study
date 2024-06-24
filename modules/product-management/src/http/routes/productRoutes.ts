@@ -16,4 +16,5 @@ export const productRoutes = (app: FastifyInstance): void => {
     app.patch('/products/buy-a-product', (req, reply) => productController.buyAProduct(req, reply))
     app.patch('/products/stock', (req, reply) => productController.updateStockLevel(req, reply))
     app.get('/products/search', (req, reply) => productController.searchProducts(req, reply))
+    app.patch('/products/upload-image/:id', (req, reply) => productController.uploadProductImage(req, reply))
 }

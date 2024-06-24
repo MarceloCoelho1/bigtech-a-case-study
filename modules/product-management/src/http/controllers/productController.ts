@@ -7,6 +7,7 @@ import { BuyAProductDTO } from "../dtos/buyAProductDTO";
 import { ProductOutOfStock } from "../../core/errors/productOutOfStockError";
 import { UpdateStockLevel } from "../dtos/updateStockLevelDTO";
 import { SearchQueryDTO } from "../dtos/searchQueryDTO";
+import { Readable } from "node:stream";
 
 export class ProductController {
     constructor(
@@ -72,7 +73,7 @@ export class ProductController {
             const { id } = req.params as { id: string }
             const product = await this.ProductUsecases.findById(id)
             reply.status(200).send({ product: product })
-        } catch(error) {
+        } catch (error) {
             if (error instanceof ProductNotFound) {
                 reply.status(error.statusCode).send({ error: error.message });
             } else {
@@ -86,7 +87,7 @@ export class ProductController {
             const buyAProductData = req.body as BuyAProductDTO
             await this.ProductUsecases.buyAProduct(buyAProductData)
             reply.status(200)
-        } catch(error) {
+        } catch (error) {
             if (error instanceof ProductNotFound) {
                 reply.status(error.statusCode).send({ error: error.message });
             } else if (error instanceof ProductOutOfStock) {
@@ -101,8 +102,8 @@ export class ProductController {
         try {
             const updateStockLevelData = req.body as UpdateStockLevel
             const product = await this.ProductUsecases.updateStockLevel(updateStockLevelData)
-            reply.status(200).send({product: product})
-        } catch(error) {
+            reply.status(200).send({ product: product })
+        } catch (error) {
             if (error instanceof ProductNotFound) {
                 reply.status(error.statusCode).send({ error: error.message });
             } else {
@@ -117,14 +118,49 @@ export class ProductController {
 
             const formatedQueryData = {
                 name: queryData.name || "",
-                categoryId: Number(queryData.categoryId) || undefined, 
-                priceMin: Number(queryData.priceMin) || undefined, 
-                priceMax: Number(queryData.priceMax) || undefined, 
+                categoryId: Number(queryData.categoryId) || undefined,
+                priceMin: Number(queryData.priceMin) || undefined,
+                priceMax: Number(queryData.priceMax) || undefined,
             }
-            
+
             const products = await this.ProductUsecases.searchProducts(formatedQueryData)
-            reply.status(200).send({products: products})
-        } catch(error) {
+            reply.status(200).send({ products: products })
+        } catch (error) {
+            if (error instanceof ProductNotFound) {
+                reply.status(error.statusCode).send({ error: error.message });
+            } else {
+                reply.status(500).send({ error: 'Internal Server Error' });
+            }
+        }
+    }
+
+    async uploadProductImage(req: FastifyRequest, reply: FastifyReply) {
+        try {
+            const data = await req.file();
+            if (!data) {
+                return null; 
+            }
+            const fileStream: Readable = data.file;
+        
+            const chunks: Buffer[] = [];
+        
+            // Read the file stream and collect chunks
+            for await (const chunk of fileStream) {
+                chunks.push(chunk);
+            }
+        
+            // Combine chunks into a single buffer
+            const buffer = Buffer.concat(chunks);
+        
+            // Convert buffer to Uint8Array
+            const uint8Array = new Uint8Array(buffer);
+
+            const mimitype = data?.mimetype
+            const { id } = req.params as { id: string }
+
+            const product = await this.ProductUsecases.uploadProductImage(uint8Array, id, mimitype)
+            reply.status(200).send({product: product })
+        } catch (error) {
             if (error instanceof ProductNotFound) {
                 reply.status(error.statusCode).send({ error: error.message });
             } else {
