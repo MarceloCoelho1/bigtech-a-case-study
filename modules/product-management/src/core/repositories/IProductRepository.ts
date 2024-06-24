@@ -14,4 +14,5 @@ export interface IProductRepository {
     updateStockLevel(productId: string, newQuantityInStock: number): Promise<Product>
     searchProducts(data: SearchQueryDTO): Promise<Product[] | null>
     updateProductImage(id: string, image: string): Promise<Product>
+    deleteProductImage(id: string): Promise<Product>
 }
