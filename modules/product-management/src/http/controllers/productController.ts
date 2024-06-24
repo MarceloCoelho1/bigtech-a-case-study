@@ -8,7 +8,9 @@ import { ProductOutOfStock } from "../../core/errors/productOutOfStockError";
 import { UpdateStockLevel } from "../dtos/updateStockLevelDTO";
 import { SearchQueryDTO } from "../dtos/searchQueryDTO";
 import { Readable } from "node:stream";
-import { ProductImageNotFound } from "../../core/errors/productImageNotFountError";
+import { ProductImageNotFound } from "../../core/errors/productImageNotFoundError";
+import { SetDiscountDTO } from "../dtos/setDiscountDTO";
+import { CategoryNotFound } from "../../core/errors/categoryNotFoundError";
 
 export class ProductController {
     constructor(
@@ -179,6 +181,20 @@ export class ProductController {
             if (error instanceof ProductNotFound) {
                 reply.status(error.statusCode).send({ error: error.message });
             } else if (error instanceof ProductImageNotFound) {
+                reply.status(error.statusCode).send({ error: error.message });
+            } else {
+                reply.status(500).send({ error: 'Internal Server Error' });
+            }
+        }
+    }
+
+    async setProductDiscountByCategory(req: FastifyRequest, reply: FastifyReply) {
+        try {
+            const setProductDiscountData = req.body as SetDiscountDTO
+            await this.ProductUsecases.setDiscountByCategory(setProductDiscountData)
+            reply.status(200)
+        } catch (error) {
+            if (error instanceof CategoryNotFound) {
                 reply.status(error.statusCode).send({ error: error.message });
             } else {
                 reply.status(500).send({ error: 'Internal Server Error' });
