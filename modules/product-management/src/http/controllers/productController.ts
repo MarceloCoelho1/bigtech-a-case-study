@@ -8,6 +8,7 @@ import { ProductOutOfStock } from "../../core/errors/productOutOfStockError";
 import { UpdateStockLevel } from "../dtos/updateStockLevelDTO";
 import { SearchQueryDTO } from "../dtos/searchQueryDTO";
 import { Readable } from "node:stream";
+import { ProductImageNotFound } from "../../core/errors/productImageNotFountError";
 
 export class ProductController {
     constructor(
@@ -162,6 +163,22 @@ export class ProductController {
             reply.status(200).send({product: product })
         } catch (error) {
             if (error instanceof ProductNotFound) {
+                reply.status(error.statusCode).send({ error: error.message });
+            } else {
+                reply.status(500).send({ error: 'Internal Server Error' });
+            }
+        }
+    }
+
+    async deleteProductImage(req: FastifyRequest, reply: FastifyReply) {
+        try {
+            const { id } = req.params as { id: string }
+            const product = await this.ProductUsecases.deleteProductImage(id)
+            reply.status(200).send({product: product })
+        } catch (error) {
+            if (error instanceof ProductNotFound) {
+                reply.status(error.statusCode).send({ error: error.message });
+            } else if (error instanceof ProductImageNotFound) {
                 reply.status(error.statusCode).send({ error: error.message });
             } else {
                 reply.status(500).send({ error: 'Internal Server Error' });
