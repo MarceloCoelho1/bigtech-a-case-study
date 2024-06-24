@@ -73,10 +73,10 @@ This module focuses on handling product data and functionality independently. It
 	- [x] Edit product reviews
 	- [x] Delete product reviews
 	- [x] Rate products
-- [ ] Product Images
-	- [ ] Upload product images
-	- [ ] Update product images
-	- [ ] Delete product images
+- [x] Product Images
+	- [x] Upload product images
+	- [x] Update product images
+	- [x] Delete product images
 - [ ] Price Management
 	- [ ] Set product prices
 	- [ ] Update product prices
