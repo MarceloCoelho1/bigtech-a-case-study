@@ -115,4 +115,18 @@ export class PrismaProductRepository implements IProductRepository {
         return product
 
     }
+
+    async deleteProductImage(id: string): Promise<Product> {
+        const product = await prisma.product.update({
+            where: { id },
+            data: {
+                url_image: null
+            },
+            include: {
+                reviews: true
+            }
+        })
+
+        return product
+    }
 }

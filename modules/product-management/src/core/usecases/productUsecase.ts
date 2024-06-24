@@ -3,8 +3,10 @@ import { CreateProductDTO } from "../../http/dtos/createProductDTO";
 import { SearchQueryDTO } from "../../http/dtos/searchQueryDTO";
 import { UpdateProductDTO } from "../../http/dtos/updateProductDTO";
 import { UpdateStockLevel } from "../../http/dtos/updateStockLevelDTO";
-import { uploadImageLib } from "../../lib/upload-image";
+import { deleteImageLib, uploadImageLib } from "../../lib/upload-image";
 import { Product } from "../entities/product";
+import { DeleteImageError } from "../errors/deleteImageError";
+import { ProductImageNotFound } from "../errors/productImageNotFountError";
 import { ProductNotFound } from "../errors/productNotFoundError";
 import { ProductOutOfStock } from "../errors/productOutOfStockError";
 import { IProductRepository } from "../repositories/IProductRepository";
@@ -111,5 +113,28 @@ export class ProductUsecases {
 
         const updateProduct = await this.productRepository.updateProductImage(id, response.downloadURL)
         return updateProduct
+    }
+
+    async deleteProductImage(id: string): Promise<Product> {
+        const product = await this.findById(id)
+
+        if(!product) {
+            throw new ProductNotFound()
+        }
+
+        if(!product.url_image) {
+            throw new ProductImageNotFound()
+        }
+        
+
+
+        const response = await deleteImageLib(id)
+
+        if(response.operation === 0) {
+            throw new DeleteImageError()
+        }
+
+        const updatedProduct = await this.productRepository.deleteProductImage(id)
+        return updatedProduct
     }
 }
