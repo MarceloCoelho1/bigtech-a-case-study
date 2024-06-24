@@ -4,21 +4,27 @@ import { Product } from "../../core/entities/product";
 import { CreateProductDTO } from "../../http/dtos/createProductDTO";
 import { UpdateProductDTO } from "../../http/dtos/updateProductDTO";
 import { BuyAProductDTO } from "../../http/dtos/buyAProductDTO";
-import { UpdateStockLevel } from "../../http/dtos/updateStockLevelDTO";
 import { SearchQueryDTO } from "../../http/dtos/searchQueryDTO";
 
 export class PrismaProductRepository implements IProductRepository {
     
     async create(data: CreateProductDTO): Promise<Product> {
         const product = await prisma.product.create({
-            data
+            data,
+            include: {
+                reviews: true
+            }
         })
 
         return product
     }
 
     async getAllProducts(): Promise<Product[]> {
-        const products = await prisma.product.findMany()
+        const products = await prisma.product.findMany({
+            include: {
+                reviews: true
+            }
+        })
         return products
     }
 
@@ -27,19 +33,24 @@ export class PrismaProductRepository implements IProductRepository {
             where: {
                 id: data.id
             },
-            data
+            data,
+            include: {
+                reviews: true
+            }
         })
 
         return updatedProduct
     }
 
     async findById(id: string): Promise<Product | null> {
-        const product = await prisma.product.findUnique({ where: { id } })
+        const product = await prisma.product.findUnique({ where: { id }, include: {
+            reviews: true
+        } })
         return product
     }
 
     async deleteProduct(id: string): Promise<void> {
-        await prisma.product.delete({ where: { id } })
+        await prisma.product.delete({ where: { id }, include: {reviews: true} })
     }
 
     async buyAProduct(data: BuyAProductDTO, newQuantityInStock: number): Promise<void> {
@@ -60,6 +71,9 @@ export class PrismaProductRepository implements IProductRepository {
             },
             data: {
                 quantity_in_stock: newQuantityInStock
+            },
+            include: {
+                reviews: true
             }
         })
 
@@ -76,6 +90,9 @@ export class PrismaProductRepository implements IProductRepository {
                 },
                 category_id: data.categoryId
 
+            },
+            include: {
+                reviews: true
             }
         })
 
