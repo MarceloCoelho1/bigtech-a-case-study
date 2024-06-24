@@ -68,11 +68,11 @@ This module focuses on handling product data and functionality independently. It
 	- [x] Implement search by product name
 	- [x] Implement search by category
 	- [x] Implement search by attributes (e.g., price, brand)
-- [ ] Product Reviews and Ratings
-	- [ ] Add product reviews
-	- [ ] Edit product reviews
-	- [ ] Delete product reviews
-	- [ ] Rate products
+- [x] Product Reviews and Ratings
+	- [x] Add product reviews
+	- [x] Edit product reviews
+	- [x] Delete product reviews
+	- [x] Rate products
 - [ ] Product Images
 	- [ ] Upload product images
 	- [ ] Update product images
