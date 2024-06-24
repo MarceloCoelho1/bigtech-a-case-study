@@ -13,4 +13,5 @@ export interface IProductRepository {
     buyAProduct(data: BuyAProductDTO, newQuantityInStock: number): Promise<void>
     updateStockLevel(productId: string, newQuantityInStock: number): Promise<Product>
     searchProducts(data: SearchQueryDTO): Promise<Product[] | null>
+    updateProductImage(id: string, image: string): Promise<Product>
 }
