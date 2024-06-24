@@ -25,7 +25,7 @@ This project aims to deepen my knowledge and learning by researching how these f
 
 ### Authentication
 
-technologies: Typescript, fastify, docker, prisma, postgresql, Jwt token, bcrypt, nodemailer.
+technologies: Typescript, fastify, docker, prisma, postgresql, JwtToken, bcrypt, nodemailer.
 
 The authentication module handles user sign-up, login, and security features such as password hashing, multi-factor authentication, Role-based authentication and session management.
 
@@ -47,6 +47,8 @@ The authentication module handles user sign-up, login, and security features suc
 
 
 ### Product Management
+
+technologies: Typescript, *firebase*, fastify, docker, prisma, postgresql, nodemailer.
 
 This module focuses on handling product data and functionality independently. It includes product listing, categorization, inventory management, and search functionality without relying on user management.
 
