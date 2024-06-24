@@ -48,7 +48,7 @@ The authentication module handles user sign-up, login, and security features suc
 
 ### Product Management
 
-technologies: Typescript, *firebase*, fastify, docker, prisma, postgresql, nodemailer.
+technologies: Typescript, **firebase**, fastify, docker, prisma, postgresql, nodemailer.
 
 This module focuses on handling product data and functionality independently. It includes product listing, categorization, inventory management, and search functionality without relying on user management.
 
