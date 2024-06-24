@@ -1,6 +1,7 @@
 import { BuyAProductDTO } from "../../http/dtos/buyAProductDTO";
 import { CreateProductDTO } from "../../http/dtos/createProductDTO";
 import { SearchQueryDTO } from "../../http/dtos/searchQueryDTO";
+import { SetDiscountDTO } from "../../http/dtos/setDiscountDTO";
 import { UpdateProductDTO } from "../../http/dtos/updateProductDTO";
 import { Product } from "../entities/product";
 
@@ -15,4 +16,6 @@ export interface IProductRepository {
     searchProducts(data: SearchQueryDTO): Promise<Product[] | null>
     updateProductImage(id: string, image: string): Promise<Product>
     deleteProductImage(id: string): Promise<Product>
+    setDiscount(data: SetDiscountDTO): Promise<void>
+
 }
