@@ -1,4 +1,5 @@
 import fastify from 'fastify'
+import multipart from '@fastify/multipart'
 import { env } from './env';
 import { prisma } from './data/datasources/prismaClient';
 import { productRoutes } from './http/routes/productRoutes';
@@ -7,6 +8,7 @@ import { reviewRoutes } from './http/routes/reviewRoutes';
 
 const app = fastify();
 
+app.register(multipart)
 productRoutes(app)
 categoryRoutes(app)
 reviewRoutes(app)
