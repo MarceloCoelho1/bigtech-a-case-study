@@ -3,12 +3,13 @@ import { env } from './env';
 import { prisma } from './data/datasources/prismaClient';
 import { productRoutes } from './http/routes/productRoutes';
 import { categoryRoutes } from './http/routes/categoryRoutes';
+import { reviewRoutes } from './http/routes/reviewRoutes';
 
 const app = fastify();
 
 productRoutes(app)
 categoryRoutes(app)
-
+reviewRoutes(app)
 
 const start = async () => {
   try {
