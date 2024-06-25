@@ -18,5 +18,7 @@ export const productRoutes = (app: FastifyInstance): void => {
     app.get('/products', (req, reply) => productController.getAllProducts(req, reply));
     app.post('/products', (req, reply) => productController.create(req, reply));
     app.post('/products/add-to-cart', (req, reply) => productController.addProductToCart(req, reply))
+    app.post('/products/remove-from-cart', (req, reply) => productController.removeProduct(req, reply))
+
 
 }
