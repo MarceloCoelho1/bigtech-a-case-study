@@ -16,7 +16,6 @@ export class UserUsecases {
     ) { }
 
     async create(data: CreateUserDTO): Promise<string> {
-
         const user = await this.userRepository.findByEmail(data.email)
 
         if (user) {
