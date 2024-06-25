@@ -4,6 +4,6 @@ import { UserWithoutPassword } from "../types/userWithoutPassword";
 
 export interface IUserRepository {
     create(data: CreateUserDTO): Promise<UserWithoutPassword>
-    findByEmail(email: string): Promise<UserWithoutPassword | null>
+    findByEmail(email: string): Promise<User | null>
     getAllUsers(): Promise<UserWithoutPassword[]>
 }
