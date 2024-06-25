@@ -2,10 +2,12 @@ import fastify from "fastify";
 import { env } from "./env";
 import { prisma } from "./data/datasources/prismaClient";
 import { userRoutes } from "./http/routes/userRoutes";
+import { productRoutes } from "./http/routes/productRoutes";
 
 const app = fastify()
 
 userRoutes(app)
+productRoutes(app)
 
 const start = async () => {
     try {
