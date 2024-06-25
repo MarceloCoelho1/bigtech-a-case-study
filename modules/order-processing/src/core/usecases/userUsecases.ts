@@ -1,16 +1,21 @@
 import { CreateUserDTO } from "../../http/dtos/createUserDTO";
+import { LoginUserDTO } from "../../http/dtos/loginUserDTO";
+import { InvalidPassword } from "../errors/invalidPasswordError";
 import { UserAlreadyExists } from "../errors/userAlreadyExistsError";
+import { UserNotExists } from "../errors/userNotExistsError";
 import { IUserRepository } from "../repositories/IUserRepository";
 import { IBcryptService } from "../services/IBcryptService";
+import { IJwtService } from "../services/IJwtService";
 import { UserWithoutPassword } from "../types/userWithoutPassword";
 
 export class UserUsecases {
     constructor(
         private userRepository: IUserRepository,
-        private bcryptRepository: IBcryptService
+        private bcryptRepository: IBcryptService,
+        private jwtRepository: IJwtService
     ) { }
 
-    async create(data: CreateUserDTO): Promise<UserWithoutPassword> {
+    async create(data: CreateUserDTO): Promise<string> {
 
         const user = await this.userRepository.findByEmail(data.email)
 
@@ -26,7 +31,16 @@ export class UserUsecases {
         }
 
         const createdUser = await this.userRepository.create(userData)
-        return createdUser
+
+        if (!createdUser) {
+            throw new Error("Error")
+        }
+
+        const token = this.jwtRepository.sign({
+            userId: createdUser.id
+        })
+
+        return token
 
     }
 
@@ -37,6 +51,27 @@ export class UserUsecases {
         } catch (error) {
             return new Error("Internal Server Error")
         }
+    }
+
+    async login(data: LoginUserDTO): Promise<string> {
+        const user = await this.userRepository.findByEmail(data.email)
+
+        if(!user) {
+            throw new UserNotExists()
+        }
+
+        const correctPassword = await this.bcryptRepository.compare(data.password, user.password)
+
+        if(!correctPassword) {
+            throw new InvalidPassword()
+        }
+
+        const token = this.jwtRepository.sign({
+            userId: user.id
+        })
+
+        return token
+
     }
 
 }
