@@ -3,6 +3,7 @@ import { LoginUserDTO } from "../../http/dtos/loginUserDTO";
 import { InvalidPassword } from "../errors/invalidPasswordError";
 import { UserAlreadyExists } from "../errors/userAlreadyExistsError";
 import { UserNotExists } from "../errors/userNotExistsError";
+import { ICartRepository } from "../repositories/ICartRepository";
 import { IUserRepository } from "../repositories/IUserRepository";
 import { IBcryptService } from "../services/IBcryptService";
 import { IJwtService } from "../services/IJwtService";
@@ -12,7 +13,8 @@ export class UserUsecases {
     constructor(
         private userRepository: IUserRepository,
         private bcryptRepository: IBcryptService,
-        private jwtRepository: IJwtService
+        private jwtRepository: IJwtService,
+        private cartRepository: ICartRepository
     ) { }
 
     async create(data: CreateUserDTO): Promise<string> {
@@ -34,6 +36,10 @@ export class UserUsecases {
         if (!createdUser) {
             throw new Error("Error")
         }
+
+        // create user cart
+        await this.cartRepository.create({userId: createdUser.id})
+        //
 
         const token = this.jwtRepository.sign({
             userId: createdUser.id
