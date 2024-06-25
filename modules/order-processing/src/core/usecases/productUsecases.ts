@@ -1,5 +1,7 @@
 import { AddProductToCart } from "../../http/dtos/addProductToCartDTO";
 import { CreateProductDTO } from "../../http/dtos/createProductDTO";
+import { RemoveItemFromCart } from "../../http/dtos/removeItemFromCartDTO";
+import { ProductIsNotInTheCart } from "../errors/ProductIsNotInTheCartError";
 import { InvalidToken } from "../errors/invalidTokenError";
 import { ProductNotFound } from "../errors/productNotFoundError";
 import { UserNotExists } from "../errors/userNotExistsError";
@@ -26,6 +28,40 @@ export class ProductUsecases {
     async getAllProducts(): Promise<ProductWithoutCarts[]> {
         const products = await this.productRepository.getAllProducts()
         return products
+    }
+
+    async removeProductFromCart(data: RemoveItemFromCart): Promise<void> {
+        const payload = this.jwtRepository.verify(data.token)
+
+        if(!payload) {
+            throw new InvalidToken()
+        }
+
+        const userId = payload.userId
+
+        const user = await this.userRepository.findById(userId)
+
+        if(!user) {
+            throw new UserNotExists()
+        }
+        
+        const product = await this.productRepository.findById(data.productId)
+
+        if(!product) {
+            throw new ProductNotFound()
+        }
+
+        if(!user.cart) {
+            throw new Error('Internal server Error')
+        }
+
+        const IsProductInCart = await this.cartProductRepository.findProductAtCartById(product.id, user.cart.id)
+
+        if(!IsProductInCart) {
+            throw new ProductIsNotInTheCart()
+        }
+
+        await this.cartProductRepository.RemoveItemFromCart(data.productId, user.cart.id)
     }
 
     async addProductToCart(data: AddProductToCart): Promise<void> {
