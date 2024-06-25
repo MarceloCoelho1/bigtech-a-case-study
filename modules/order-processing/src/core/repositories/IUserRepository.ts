@@ -6,4 +6,5 @@ export interface IUserRepository {
     create(data: CreateUserDTO): Promise<UserWithoutPassword>
     findByEmail(email: string): Promise<User | null>
     getAllUsers(): Promise<UserWithoutPassword[]>
+    findById(id: string): Promise<User | null>
 }

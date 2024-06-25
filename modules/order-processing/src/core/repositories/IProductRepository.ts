@@ -1,7 +1,8 @@
 import { CreateProductDTO } from "../../http/dtos/createProductDTO";
-import { Product } from "../entities/product";
+import { ProductWithoutCarts } from "../types/productWithoutCarts";
 
 export interface IProductRepository {
-    create(data: CreateProductDTO): Promise<Product>
-    getAllProducts(): Promise<Product[]>
+    create(data: CreateProductDTO): Promise<ProductWithoutCarts>
+    getAllProducts(): Promise<ProductWithoutCarts[]>
+    findById(id: string): Promise<ProductWithoutCarts | null>
 }
