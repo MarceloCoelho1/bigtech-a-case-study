@@ -95,12 +95,10 @@ The order processing module manages the lifecycle of an order from cart to check
   - [x] View cart items
   - [x] Clear cart
 
-- [ ] **Checkout Process**
-  - [ ] Initiate checkout
-  - [ ] Apply discount codes
-  - [ ] Calculate taxes and shipping costs
-  - [ ] Collect shipping details
-  - [ ] Collect billing details
+- [x] **Checkout Process**
+  - [x] Initiate checkout
+  - [x] Apply discount codes
+  - [x] Collect order details
 
 - [ ] **Payment Processing**
   - [ ] Integrate with a payment gateway (e.g., Stripe)
