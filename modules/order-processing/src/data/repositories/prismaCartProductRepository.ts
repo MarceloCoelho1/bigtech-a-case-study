@@ -38,4 +38,16 @@ export class PrismaCartProductRepository implements ICartProductRepository {
         return product
     }
 
+    async updateProductQuantity(id: string, quantity: number, cartId: number): Promise<void> {
+        await prisma.cartProduct.update({
+            where: {
+                productId: id,
+                cartId: cartId
+            },
+            data: {
+                quantity_of_products: quantity
+            }
+        })
+    }
+
 }

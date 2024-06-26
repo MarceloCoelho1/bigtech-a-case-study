@@ -1,6 +1,7 @@
 import { AddProductToCart } from "../../http/dtos/addProductToCartDTO";
 import { CreateProductDTO } from "../../http/dtos/createProductDTO";
 import { RemoveItemFromCart } from "../../http/dtos/removeItemFromCartDTO";
+import { UpdateProductQuantityInTheCart } from "../../http/dtos/updateProductQuantityDTO";
 import { ProductIsNotInTheCart } from "../errors/ProductIsNotInTheCartError";
 import { InvalidToken } from "../errors/invalidTokenError";
 import { ProductNotFound } from "../errors/productNotFoundError";
@@ -89,5 +90,33 @@ export class ProductUsecases {
         }
 
         await this.cartProductRepository.AddProductToCart(data, user.cart?.id)
+    }
+
+    async updateProductQuantityInTheCart(data: UpdateProductQuantityInTheCart): Promise<void> {
+        const payload = this.jwtRepository.verify(data.token)
+
+        if(!payload) {
+            throw new InvalidToken()
+        }
+
+        const userId = payload.userId
+
+        const user = await this.userRepository.findById(userId)
+
+        if(!user) {
+            throw new UserNotExists()
+        }
+
+        if(!user.cart) {
+            throw new Error('Internal server Error')
+        }
+
+        const productInTheCart = await this.cartProductRepository.findProductAtCartById(data.productId, user.cart.id)
+
+        if(!productInTheCart) {
+            throw new ProductIsNotInTheCart()
+        }
+
+        await this.cartProductRepository.updateProductQuantity(data.productId, data.quantity, user.cart.id)
     }
 }
