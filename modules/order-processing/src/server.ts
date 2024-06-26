@@ -4,12 +4,14 @@ import { prisma } from "./data/datasources/prismaClient";
 import { userRoutes } from "./http/routes/userRoutes";
 import { productRoutes } from "./http/routes/productRoutes";
 import { cartRoutes } from "./http/routes/cartRoutes";
+import { checkoutRoutes } from "./http/routes/checkoutRoutes";
 
 const app = fastify()
 
 userRoutes(app)
 productRoutes(app)
 cartRoutes(app)
+checkoutRoutes(app)
 
 const start = async () => {
     try {
