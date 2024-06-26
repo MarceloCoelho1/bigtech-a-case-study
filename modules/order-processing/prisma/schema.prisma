@@ -3,7 +3,6 @@
 
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -43,7 +42,7 @@ model Cart {
 
 model CartProduct {
   id                   Int     @id @default(autoincrement())
-  cartId               Int     @unique
+  cartId               Int
   productId            String  @unique
   quantity_of_products Int
   cart                 Cart    @relation(fields: [cartId], references: [id])
