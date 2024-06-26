@@ -96,7 +96,7 @@ export class ProductUsecases {
             throw new ProductIsAlreadyInTheCart()
         }
 
-        await this.cartProductRepository.AddProductToCart(data, user.cart.id)
+        await this.cartProductRepository.AddProductToCart(data, user.cart.id, product.price)
     }
 
     async updateProductQuantityInTheCart(data: UpdateProductQuantityInTheCart): Promise<void> {
