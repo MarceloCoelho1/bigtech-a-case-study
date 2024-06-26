@@ -7,6 +7,7 @@ import { RemoveProductFromCart } from "../schemasValidation/removeProductFromCar
 import { InvalidToken } from "../../core/errors/invalidTokenError";
 import { UserNotExists } from "../../core/errors/userNotExistsError";
 import { ProductIsNotInTheCart } from "../../core/errors/ProductIsNotInTheCartError";
+import { UpdateProductQuantitySchema } from "../schemasValidation/updateProductQuantitySchema";
 
 export class ProductController {
     constructor(
@@ -94,6 +95,43 @@ export class ProductController {
             if(error instanceof InvalidToken) {
                 reply.status(error.statusCode).send({ error: error.message });
             } else if(error instanceof UserNotExists) {
+                reply.status(error.statusCode).send({ error: error.message });
+            } else {
+                reply.status(500).send({ error: 'Internal Server Error' });
+            }
+        }
+    }
+
+    async updateProductQuantityInTheCart(req: FastifyRequest, reply: FastifyReply) {
+        try {
+            const authHeader = req.headers['authorization'];
+
+            if(!authHeader) {
+                return reply.status(401).send({error: "Unauthorized"})
+            }
+
+            const token = authHeader && authHeader.split(' ')[1];
+            const productData = req.body as {productId: string, quantity: number}
+
+            const updateProductQuantityData = {
+                ...productData,
+                token
+            }
+
+            const result = UpdateProductQuantitySchema.safeParse(updateProductQuantityData)
+
+            if(!result.success) {
+                return reply.status(400).send({errors: result.error.errors})
+            }
+
+            await this.productUsecases.updateProductQuantityInTheCart(updateProductQuantityData)
+            reply.status(200)
+        } catch (error) {
+            if(error instanceof InvalidToken) {
+                reply.status(error.statusCode).send({ error: error.message });
+            } else if(error instanceof UserNotExists) {
+                reply.status(error.statusCode).send({ error: error.message });
+            } else if(error instanceof ProductIsNotInTheCart) {
                 reply.status(error.statusCode).send({ error: error.message });
             } else {
                 reply.status(500).send({ error: 'Internal Server Error' });
