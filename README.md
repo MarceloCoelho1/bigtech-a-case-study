@@ -88,12 +88,12 @@ This module focuses on handling product data and functionality independently. It
 
 The order processing module manages the lifecycle of an order from cart to checkout, payment processing, and order confirmation.
 
-- [ ] **Cart Management**
+- [x] **Cart Management**
   - [x] Add items to cart
   - [x] Remove items from cart
   - [x] Update item quantities in cart
   - [x] View cart items
-  - [ ] Clear cart
+  - [x] Clear cart
 
 - [ ] **Checkout Process**
   - [ ] Initiate checkout
