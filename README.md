@@ -92,7 +92,7 @@ The order processing module manages the lifecycle of an order from cart to check
   - [x] Add items to cart
   - [x] Remove items from cart
   - [x] Update item quantities in cart
-  - [ ] View cart items
+  - [x] View cart items
   - [ ] Clear cart
 
 - [ ] **Checkout Process**
