@@ -8,6 +8,8 @@ import { InvalidToken } from "../../core/errors/invalidTokenError";
 import { UserNotExists } from "../../core/errors/userNotExistsError";
 import { ProductIsNotInTheCart } from "../../core/errors/ProductIsNotInTheCartError";
 import { UpdateProductQuantitySchema } from "../schemasValidation/updateProductQuantitySchema";
+import { ProductNotFound } from "../../core/errors/productNotFoundError";
+import { ProductIsAlreadyInTheCart } from "../../core/errors/productIsAlreadyInTheCartError";
 
 export class ProductController {
     constructor(
@@ -95,6 +97,10 @@ export class ProductController {
             if(error instanceof InvalidToken) {
                 reply.status(error.statusCode).send({ error: error.message });
             } else if(error instanceof UserNotExists) {
+                reply.status(error.statusCode).send({ error: error.message });
+            } else if(error instanceof ProductNotFound) {
+                reply.status(error.statusCode).send({ error: error.message });
+            } else if(error instanceof ProductIsAlreadyInTheCart) {
                 reply.status(error.statusCode).send({ error: error.message });
             } else {
                 reply.status(500).send({ error: 'Internal Server Error' });

@@ -14,4 +14,5 @@ export const cartRoutes = (app: FastifyInstance): void => {
     const cartController = new CartController(productUsecases)
 
     app.get('/cart/user-products', (req, reply) => cartController.getAllProductsFromCart(req, reply));
+    app.delete('/cart/clear-cart', (req, reply) => cartController.clearCart(req, reply));
 }
