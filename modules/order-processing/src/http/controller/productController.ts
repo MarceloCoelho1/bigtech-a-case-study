@@ -88,7 +88,7 @@ export class ProductController {
             if(!result.success) {
                 return reply.status(400).send({errors: result.error.errors})
             }
-
+            
             await this.productUsecases.addProductToCart(addProductToCartData)
             reply.status(200)
         } catch (error) {
