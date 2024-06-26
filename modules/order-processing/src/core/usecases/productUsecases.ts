@@ -89,6 +89,12 @@ export class ProductUsecases {
             throw new Error('Internal server Error')
         }
 
+        const IsProductInCart = await this.cartProductRepository.findProductAtCartById(product.id, user.cart.id)
+
+        if(!IsProductInCart) {
+            throw new ProductIsNotInTheCart()
+        }
+
         await this.cartProductRepository.AddProductToCart(data, user.cart.id)
     }
 
