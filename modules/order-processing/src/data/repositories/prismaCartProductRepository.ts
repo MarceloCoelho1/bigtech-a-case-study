@@ -8,16 +8,17 @@ import { prisma } from "../datasources/prismaClient";
 export class PrismaCartProductRepository implements ICartProductRepository {
 
     async AddProductToCart(data: AddProductToCart, cartId: number): Promise<void> {
+
         await prisma.cartProduct.create({
             data: {
-                cartId: cartId,
                 productId: data.productId,
-                quantity_of_products: data.quantity_of_products
+                quantity_of_products: data.quantity_of_products,
+                cartId: cartId
             }
         })
-        
+
     }
-    
+
     async RemoveItemFromCart(productId: string, cartId: number): Promise<void> {
         await prisma.cartProduct.delete({
             where: {
@@ -26,12 +27,12 @@ export class PrismaCartProductRepository implements ICartProductRepository {
             }
         })
     }
-    
+
     async findProductAtCartById(id: string, cartId: number): Promise<CartProductReturn | null> {
         const product = await prisma.cartProduct.findUnique({
             where: {
                 productId: id,
-                cartId
+                cartId: cartId
             }
         })
 

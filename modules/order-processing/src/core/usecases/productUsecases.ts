@@ -89,7 +89,7 @@ export class ProductUsecases {
             throw new Error('Internal server Error')
         }
 
-        await this.cartProductRepository.AddProductToCart(data, user.cart?.id)
+        await this.cartProductRepository.AddProductToCart(data, user.cart.id)
     }
 
     async updateProductQuantityInTheCart(data: UpdateProductQuantityInTheCart): Promise<void> {
