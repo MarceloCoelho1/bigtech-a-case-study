@@ -9,9 +9,6 @@ Welcome to **BigTech: A Case Study**, a comprehensive project aimed at understan
   - [Authentication](#authentication)
   - [Product Management](#product-management)
   - [Order Processing](#order-processing)
-  - [Logistics](#logistics)
-  - [User Interface](#user-interface)
-  - [Analytics](#analytics)
   
 
 ## Introduction
@@ -155,22 +152,4 @@ The order processing module manages the lifecycle of an order from cart to check
 - [ ] **Advanced Order Routing**
   - [ ] Route orders to nearest warehouse
   - [ ] Optimize shipping routes
-
-### Logistics
-
-Logistics includes shipping, delivery tracking, warehouse management, and returns handling.
-
-*Coming soon*
-
-### User Interface
-
-The user interface module focuses on building a responsive and user-friendly front-end using modern web technologies.
-
-*Coming soon*
-
-### Analytics
-
-Analytics covers data collection, reporting, and analysis to provide insights into user behavior, sales trends, and system performance.
-
-*Coming soon*
 
