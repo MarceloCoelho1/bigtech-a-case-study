@@ -4,6 +4,7 @@ import { RemoveItemFromCart } from "../../http/dtos/removeItemFromCartDTO";
 import { UpdateProductQuantityInTheCart } from "../../http/dtos/updateProductQuantityDTO";
 import { ProductIsNotInTheCart } from "../errors/ProductIsNotInTheCartError";
 import { InvalidToken } from "../errors/invalidTokenError";
+import { ProductIsAlreadyInTheCart } from "../errors/productIsAlreadyInTheCartError";
 import { ProductNotFound } from "../errors/productNotFoundError";
 import { UserNotExists } from "../errors/userNotExistsError";
 import { ICartProductRepository } from "../repositories/ICartProductRepository";
@@ -91,8 +92,8 @@ export class ProductUsecases {
 
         const IsProductInCart = await this.cartProductRepository.findProductAtCartById(product.id, user.cart.id)
 
-        if(!IsProductInCart) {
-            throw new ProductIsNotInTheCart()
+        if(IsProductInCart) {
+            throw new ProductIsAlreadyInTheCart()
         }
 
         await this.cartProductRepository.AddProductToCart(data, user.cart.id)
