@@ -13,5 +13,6 @@ export const checkoutRoutes = (app: FastifyInstance): void => {
     const checkoutUsecases = new CheckoutUsecases(jwtService, userRepository, cartRepository)
     const checkoutController = new CheckoutController(checkoutUsecases)
 
-    app.post('/checkout/init', (req, reply) => checkoutController.initCheckout(req, reply));
+    app.post('/checkout/create-payment-intent', (req, reply) => checkoutController.initCheckout(req, reply));
+
 }
