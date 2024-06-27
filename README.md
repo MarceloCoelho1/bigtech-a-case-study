@@ -102,6 +102,5 @@ The order processing module manages the lifecycle of an order from cart to check
   - [x] Handle payment authorization
   - [x] Capture payment
 
-- [ ] **Messaging and Notifications**
-  - [ ] Send order confirmation email
-  - [ ] Send payment receipt email
+- [x] **Messaging and Notifications**
+  - [x] Send order confirmation email
