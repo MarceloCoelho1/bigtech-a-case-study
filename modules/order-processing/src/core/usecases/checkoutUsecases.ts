@@ -6,6 +6,7 @@ import { UserNotExists } from "../errors/userNotExistsError";
 import { ICartRepository } from "../repositories/ICartRepository";
 import { IUserRepository } from "../repositories/IUserRepository";
 import { IJwtService } from "../services/IJwtService";
+import { IMailService } from "../services/IMailService";
 
 
 export class CheckoutUsecases {
@@ -13,6 +14,7 @@ export class CheckoutUsecases {
         private jwtRepository: IJwtService,
         private userRepository: IUserRepository,
         private cartRepository: ICartRepository,
+        private mailService: IMailService
     ) { }
 
     async initCheckout(data: InitCheckoutDTO) {
@@ -71,6 +73,15 @@ export class CheckoutUsecases {
             email: user.email,
             total_price: totalInCents
         }
+
+        let mailData = {
+            to: user.email,
+            subject: "Order Created",
+            body: `<p><strong>Order Created</strong>!</p>`
+        }
+
+        await this.mailService.sendMail(mailData)
+
         return orderDetails
 
     }
