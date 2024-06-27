@@ -1,5 +1,5 @@
 // This is your test publishable API key.
-const stripe = Stripe("pk_test_51PW3l0P4hnTfRrUPnPLB4lgiT6Yon8wnjKRafixS7xvaW38emYvNIVAteg5cjirpGWvdxKlVOKhSPGptiNVKTp6100aKHTfq9x");
+const stripe = Stripe("public api key");
 
 // The items the customer wants to buy
 const items = [{ id: "xl-tshirt" }];
@@ -19,7 +19,7 @@ async function initialize() {
     method: "POST",
     headers: { 
         "Content-Type": "application/json",
-        "authorization": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI0ZDlhMTA3My1mMWNmLTQ2MzgtODVkZC1mNzBiYzJhNWMyMzUiLCJpYXQiOjE3MTk1MTIxODAsImV4cCI6MTcxOTUxOTM4MH0.clFYyCGJxvMwA96xJ0G53dSlIxFyUlTym3278AzibjI"
+        "authorization": "bearer jwttoken"
     },
     body: JSON.stringify({ items }),
   });
