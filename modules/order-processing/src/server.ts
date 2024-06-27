@@ -5,8 +5,15 @@ import { userRoutes } from "./http/routes/userRoutes";
 import { productRoutes } from "./http/routes/productRoutes";
 import { cartRoutes } from "./http/routes/cartRoutes";
 import { checkoutRoutes } from "./http/routes/checkoutRoutes";
+import cors from '@fastify/cors'
 
 const app = fastify()
+async function initCors() {
+    await app.register(cors)
+}
+
+initCors()
+  
 
 userRoutes(app)
 productRoutes(app)
