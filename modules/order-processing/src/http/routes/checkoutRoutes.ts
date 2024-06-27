@@ -4,13 +4,15 @@ import { PrismaUserRepository } from "../../data/repositories/prismaUserReposito
 import { PrismaCartRepository } from "../../data/repositories/prismaCartRepository";
 import { CheckoutUsecases } from "../../core/usecases/checkoutUsecases";
 import { CheckoutController } from "../controller/checkoutController";
+import { MailService } from "../../infra/services/MailService";
 
 
 export const checkoutRoutes = (app: FastifyInstance): void => {
     const cartRepository = new PrismaCartRepository()
     const userRepository = new PrismaUserRepository()
     const jwtService = new JWTService()
-    const checkoutUsecases = new CheckoutUsecases(jwtService, userRepository, cartRepository)
+    const mailService = new MailService()
+    const checkoutUsecases = new CheckoutUsecases(jwtService, userRepository, cartRepository, mailService)
     const checkoutController = new CheckoutController(checkoutUsecases)
 
     app.post('/checkout/create-payment-intent', (req, reply) => checkoutController.initCheckout(req, reply));

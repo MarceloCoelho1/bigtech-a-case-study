@@ -7,6 +7,7 @@ import { CheckoutUsecases } from "../../core/usecases/checkoutUsecases";
 import { InvalidDiscountCode } from "../../core/errors/invalidDiscountCodeError";
 import { CartIsEmpty } from "../../core/errors/cartIsEmptyError";
 import { stripe } from "../../infra/services/StripeService";
+import { EmailNotSent } from "../../core/errors/EmailNotSentError";
 
 export class CheckoutController {
     constructor(
@@ -33,7 +34,6 @@ export class CheckoutController {
             }
 
             const orderDetails = await this.checkoutUsecases.initCheckout(checkoutData)
-            console.log(orderDetails.total_price)
             const paymentIntent = await stripe.paymentIntents.create({
                 amount: orderDetails.total_price,
                 currency: "brl",
@@ -55,6 +55,8 @@ export class CheckoutController {
             } else if (error instanceof InvalidDiscountCode) {
                 reply.status(error.statusCode).send({ error: error.message });
             } else if (error instanceof CartIsEmpty) {
+                reply.status(error.statusCode).send({ error: error.message });
+            } else if (error instanceof EmailNotSent) {
                 reply.status(error.statusCode).send({ error: error.message });
             } else {
                 reply.status(500).send({ error: 'Internal Server Error' });
