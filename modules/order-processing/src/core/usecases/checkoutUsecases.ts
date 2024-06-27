@@ -65,11 +65,11 @@ export class CheckoutUsecases {
         if(discountCode) {
             sum = sum - (sum * (discountCode.discount/100))
         } 
-
+        let totalInCents = Math.round(sum * 100);
         const orderDetails = {
             name: user.name,
             email: user.email,
-            total_price: sum
+            total_price: totalInCents
         }
         return orderDetails
 
