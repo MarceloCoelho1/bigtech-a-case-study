@@ -97,12 +97,11 @@ The order processing module manages the lifecycle of an order from cart to check
   - [x] Apply discount codes
   - [x] Collect order details
 
-- [ ] **Payment Processing**
-  - [ ] Integrate with a payment gateway (e.g., Stripe)
-  - [ ] Handle payment authorization
-  - [ ] Capture payment
-  - [ ] Handle payment failures
-  - [ ] Issue refunds
+- [x] **Payment Processing**
+  - [x] Integrate with a payment gateway (e.g., Stripe)
+  - [x] Handle payment authorization
+  - [x] Capture payment
+
 
 - [ ] **Order Management**
   - [ ] Create order
@@ -111,45 +110,6 @@ The order processing module manages the lifecycle of an order from cart to check
   - [ ] View order details
   - [ ] Track order history
 
-- [ ] **Inventory Management**
-  - [ ] Update stock levels after order placement
-  - [ ] Check stock availability during checkout
-  - [ ] Notify when stock is low
-  - [ ] Prevent overselling
-
 - [ ] **Messaging and Notifications**
   - [ ] Send order confirmation email
   - [ ] Send payment receipt email
-  - [ ] Send shipping notification email
-  - [ ] Send delivery confirmation email
-  - [ ] Notify users of cart abandonment
-
-- [ ] **Order Analytics**
-  - [ ] Track sales metrics
-  - [ ] Generate sales reports
-  - [ ] Analyze order trends
-  - [ ] Monitor payment gateway performance
-
-- [ ] **Security and Compliance**
-  - [ ] Implement secure payment handling
-  - [ ] Ensure compliance with PCI DSS (Payment Card Industry Data Security Standard)
-  - [ ] Handle sensitive data securely (e.g., encryption)
-  - [ ] Implement fraud detection mechanisms
-
-- [ ] **Multi-currency Support**
-  - [ ] Allow payments in different currencies
-  - [ ] Display prices based on user location
-
-- [ ] **Subscription Management**
-  - [ ] Handle recurring payments
-  - [ ] Manage subscription plans
-  - [ ] Notify users of subscription renewals
-
-- [ ] **Internationalization**
-  - [ ] Support multiple languages
-  - [ ] Localize tax and shipping calculations
-
-- [ ] **Advanced Order Routing**
-  - [ ] Route orders to nearest warehouse
-  - [ ] Optimize shipping routes
-
