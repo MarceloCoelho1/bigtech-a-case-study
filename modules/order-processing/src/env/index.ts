@@ -16,7 +16,11 @@ const envSchema = z.object({
     JWT_EXPIRES_IN: z.string().default('2h'),
 
     // Stripe api key
-    STRIPE_KEY: z.string()
+    STRIPE_KEY: z.string(),
+
+    // nodemailer config
+    EMAIL_USERNAME: z.string(),
+    EMAIL_KEY: z.string(),
 });
 
 const _env = envSchema.safeParse(process.env)
