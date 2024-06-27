@@ -13,7 +13,10 @@ const envSchema = z.object({
 
     // jwt config
     JWT_SECRET: z.string(),
-    JWT_EXPIRES_IN: z.string().default('2h')
+    JWT_EXPIRES_IN: z.string().default('2h'),
+
+    // Stripe api key
+    STRIPE_KEY: z.string()
 });
 
 const _env = envSchema.safeParse(process.env)
