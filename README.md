@@ -102,14 +102,6 @@ The order processing module manages the lifecycle of an order from cart to check
   - [x] Handle payment authorization
   - [x] Capture payment
 
-
-- [ ] **Order Management**
-  - [ ] Create order
-  - [ ] Update order status (e.g., pending, paid, shipped, delivered)
-  - [ ] Cancel order
-  - [ ] View order details
-  - [ ] Track order history
-
 - [ ] **Messaging and Notifications**
   - [ ] Send order confirmation email
   - [ ] Send payment receipt email
